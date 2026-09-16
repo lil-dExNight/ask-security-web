@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -126,5 +127,177 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+/*
+ * ASK Security dark theme.
+ * Colors are consumed in components via Tailwind arbitrary values,
+ * e.g. bg-(--dk-void), text-(--dk-acid).
+ */
+
+:root {
+  --dk-void: #0a0e14;
+  --dk-abyss: #060a10;
+  --dk-panel: #0d1524;
+  --dk-line: #1c2b3f;
+  --dk-acid: #41f2a4;
+  --dk-acid-soft: #9dffda;
+  --dk-ink: #dce9f7;
+  --dk-mist: #8296ad;
+  --dk-font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --dk-font-term: "JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo", monospace;
+}
+
+@layer base {
+  html {
+    background-color: #0a0e14;
+    scrollbar-color: #1c2b3f #0a0e14;
+  }
+  body {
+    overflow-x: clip;
+    background-color: var(--dk-void);
+    color: var(--dk-ink);
+    font-family: var(--dk-font-display);
+  }
+}
+
+::selection {
+  background: var(--dk-acid);
+  color: #04120b;
+}
+
+/* Monospace helper (JetBrains Mono). */
+.pd-mono {
+  font-family: var(--dk-font-term);
+}
+
+/* Logo: navy-on-white mark inverted so it reads on dark. */
+.pd-logo {
+  filter: invert(1) brightness(1.05);
+  mix-blend-mode: screen;
+}
+
+/* Faint engineering grid, tinted with the accent color. */
+.pd-grid {
+  background-image:
+    linear-gradient(to right, rgb(65 242 164 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(65 242 164 / 0.05) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+/* CRT scanline overlay. */
+.pd-scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0.022) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+/* Slow scan beam travelling down the viewport. */
+.pd-scanbeam {
+  position: fixed;
+  top: -18vh;
+  left: 0;
+  right: 0;
+  height: 18vh;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(65 242 164 / 0.045),
+    transparent
+  );
+  animation: pd-scan 11s linear infinite;
+}
+
+@keyframes pd-scan {
+  to {
+    transform: translateY(135vh);
+  }
+}
+
+/* Blinking terminal caret. */
+.pd-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.1em;
+  vertical-align: -0.12em;
+  background: var(--dk-acid);
+  box-shadow: 0 0 14px rgb(65 242 164 / 0.8);
+  animation: pd-blink 1.05s steps(2, start) infinite;
+}
+
+@keyframes pd-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* Pulsing status dot. */
+.pd-dot {
+  position: relative;
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--dk-acid);
+  box-shadow: 0 0 10px rgb(65 242 164 / 0.9);
+}
+
+.pd-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--dk-acid);
+  animation: pd-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes pd-ping {
+  75%,
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+/* Neon glow for emphasized text. */
+.pd-glow {
+  text-shadow:
+    0 0 18px rgb(65 242 164 / 0.5),
+    0 0 64px rgb(65 242 164 / 0.2);
+}
+
+/* Nav link underline sweep. */
+.pd-link {
+  position: relative;
+}
+
+.pd-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: var(--dk-acid);
+  box-shadow: 0 0 8px rgb(65 242 164 / 0.8);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.pd-link:hover::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pd-caret,
+  .pd-dot::after,
+  .pd-scanbeam {
+    animation: none;
   }
 }
