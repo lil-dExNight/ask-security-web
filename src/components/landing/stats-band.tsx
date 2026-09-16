@@ -52,7 +52,7 @@ function Counter({ value, prefix = "", suffix = "" }: { value: number; prefix?: 
 
 export function StatsBand() {
   return (
-    <section id="stats" className="relative scroll-mt-20 border-y border-(--dk-line) bg-(--dk-abyss)/70">
+    <section id="stats" aria-label="Key statistics" className="relative scroll-mt-20 border-y border-(--dk-line) bg-(--dk-abyss)/70">
       <div aria-hidden className="pd-grid absolute inset-0 opacity-40 [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]" />
       <div className="relative mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
         <div className="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4">

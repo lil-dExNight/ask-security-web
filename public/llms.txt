@@ -1,0 +1,15 @@
+# ASK Security
+
+> Independent security audits for web3 protocols, infrastructure, and wallets — from code review to 24/7 post-deployment monitoring. Ship with confidence.
+
+## Services
+
+- [Code Audit](https://asksecurity.io/#services): line-by-line review of smart contracts and off-chain code (Solidity, Rust, zk-circuits), with fix verification.
+- [Infrastructure Audit](https://asksecurity.io/#services): nodes, validators, bridges, and cloud setups reviewed end to end.
+- [Security Research](https://asksecurity.io/#services): adversarial research on novel mechanisms, with proof-of-concept exploits.
+- [Post-Deployment Monitoring](https://asksecurity.io/#services): 24/7 on-chain monitoring, real-time alerts, and incident response.
+
+## Contact
+
+- [Telegram](https://t.me/asksecurity): @asksecurity — replies within 24 hours.
+- [Email](mailto:ask.security@gmail.com): ask.security@gmail.com — PGP available on request, NDA-friendly.
