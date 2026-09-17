@@ -7,6 +7,7 @@ const FOOTER_NAV = [
   { label: "Cases", href: "#cases" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export function SiteFooter() {

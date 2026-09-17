@@ -34,10 +34,13 @@ ASK Security landing website. Stack: see STACK.md. Requirements: see BRIEF.md.
 3. Buy domain, attach, TLS
 4. Verify production: pages load, contacts work, mobile check
 
-## Phase 5 — Blog (later)
+## Phase 5 — Blog + admin panel
 
-1. MDX-based blog under `/blog` (ISR, RSS)
-2. Index + article templates in the same dark style
+1. Posts: markdown files with frontmatter in `content/blog/` (title, slug, date, excerpt, tags, draft)
+2. Public: `/blog` index (dark style, like statemind.io/blog), `/blog/[slug]` article with markdown render (react-markdown + GFM + syntax highlight), RSS
+3. Admin: `/admin` — password auth (env `ADMIN_PASSWORD`, signed cookie), posts list, markdown editor with live preview, create/edit/delete, draft/publish toggle; CRUD via `/api/admin/posts`
+4. Storage: file-based markdown store (works locally/self-hosted; Cloudflare deploy needs OpenNext runtime, not static export)
+5. SEO: sitemap includes posts, robots disallows /admin
 
 ## Rules
 

@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { label: "Cases", href: "#cases" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export function SiteHeader() {

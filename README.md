@@ -24,3 +24,19 @@ npm run lint   # eslint
 - `src/components/landing/` — page sections (header, hero, services, stats band, cases, testimonials, contact, footer)
 - `src/components/ui/` — shadcn/ui primitives
 - `public/logo.png` — brand mark (inverted via CSS filter for the dark theme)
+
+## Blog & Admin
+
+Posts are Markdown files with frontmatter (`title`, `date`, `excerpt`, `tags`, `draft`) stored in `content/blog/`.
+
+- Public blog: `/blog` (published posts only, drafts are hidden).
+- Admin panel: `/admin` — list, create, edit and delete posts with a live Markdown preview.
+
+Set the admin password before using the panel:
+
+```bash
+# .env.local
+ADMIN_PASSWORD=your-strong-password
+```
+
+Without `ADMIN_PASSWORD`, `/admin` shows a setup notice and login stays disabled. Sessions use a signed, httpOnly `ask_admin` cookie with a 7-day expiry. Admin routes are disallowed in `robots.txt` and require no extra dependencies — auth is built on `node:crypto` (HMAC-SHA256).
