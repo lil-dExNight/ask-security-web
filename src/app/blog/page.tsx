@@ -5,8 +5,6 @@ import { listPosts, type PostMeta } from "@/lib/blog";
 import { SiteHeader } from "@/components/landing/site-header";
 import { SiteFooter } from "@/components/landing/site-footer";
 
-export const dynamic = "force-dynamic";
-
 export const metadata: Metadata = {
   title: "Blog",
   description:

@@ -18,6 +18,10 @@ npm run build  # production build
 npm run lint   # eslint
 ```
 
+## Hosting
+
+The site is statically exported and deployed to GitHub Pages on every push to `master`. See [DEPLOY.md](DEPLOY.md).
+
 ## Structure
 
 - `src/app/` — root layout, landing page, global styles (dark theme tokens and effects live at the end of `globals.css`)

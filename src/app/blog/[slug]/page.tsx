@@ -7,7 +7,9 @@ import { Markdown } from "@/components/markdown";
 import { SiteHeader } from "@/components/landing/site-header";
 import { SiteFooter } from "@/components/landing/site-footer";
 
-export const dynamic = "force-dynamic";
+export function generateStaticParams() {
+  return listPosts().map((post) => ({ slug: post.slug }));
+}
 
 const dateFmt = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
