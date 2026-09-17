@@ -16,14 +16,19 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-5 py-14 md:px-8">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div>
-            <Image
-              src={asset("/logo.png")}
-              alt="ASK Security"
-              width={1797}
-              height={875}
-              sizes="66px"
-              className="pd-logo h-8 w-auto"
-            />
+            <div className="flex items-center gap-3">
+              <Image
+                src={asset("/logo-mark.png")}
+                alt=""
+                width={920}
+                height={520}
+                sizes="32px"
+                className="pd-logo h-8 w-auto"
+              />
+              <span className="text-xl font-semibold tracking-tight text-(--dk-ink)">
+                ASK <span className="font-normal text-(--dk-mist)">Security</span>
+              </span>
+            </div>
             <p className="pd-mono mt-5 text-[11px] font-medium uppercase tracking-[0.4em] text-(--dk-acid)">
               Audit / Protect / Enable
             </p>

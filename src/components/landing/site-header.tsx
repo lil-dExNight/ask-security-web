@@ -38,16 +38,19 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 md:px-8">
-        <a href="#top" aria-label="ASK Security — back to top" className="flex items-center">
+        <a href="#top" aria-label="ASK Security — back to top" className="flex items-center gap-3">
           <Image
-            src={asset("/logo.png")}
-            alt="ASK Security"
-            width={1797}
-            height={875}
+            src={asset("/logo-mark.png")}
+            alt=""
+            width={920}
+            height={520}
             priority
-            sizes="66px"
-            className="pd-logo h-8 w-auto"
+            sizes="28px"
+            className="pd-logo h-7 w-auto"
           />
+          <span className="text-lg font-semibold tracking-tight text-(--dk-ink)">
+            ASK <span className="font-normal text-(--dk-mist)">Security</span>
+          </span>
         </a>
 
         <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">

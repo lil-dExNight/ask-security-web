@@ -90,15 +90,23 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Image
-              src={asset("/logo-mark.png")}
-              alt="ASK Security eye mark"
-              width={920}
-              height={520}
-              priority
-              sizes="142px"
-              className="pd-logo h-16 w-auto md:h-20"
-            />
+            <div className="flex items-center gap-5">
+              <Image
+                src={asset("/logo-mark.png")}
+                alt=""
+                width={920}
+                height={520}
+                priority
+                sizes="142px"
+                className="pd-logo h-16 w-auto md:h-20"
+              />
+              <span className="text-3xl font-semibold leading-none tracking-tight text-(--dk-ink) md:text-4xl">
+                ASK
+                <span className="block text-xl font-normal text-(--dk-mist) md:text-2xl">
+                  Security
+                </span>
+              </span>
+            </div>
           </m.div>
 
           <m.p
