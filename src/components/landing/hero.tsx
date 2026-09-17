@@ -100,9 +100,9 @@ export function Hero() {
                 sizes="142px"
                 className="pd-logo h-16 w-auto md:h-20"
               />
-              <span className="text-3xl font-semibold leading-none tracking-tight text-(--dk-ink) md:text-4xl">
+              <span className="text-5xl font-semibold leading-none tracking-tight text-(--dk-ink) md:text-6xl">
                 ASK
-                <span className="block text-xl font-normal text-(--dk-mist) md:text-2xl">
+                <span className="block text-3xl font-normal text-(--dk-mist) md:text-4xl">
                   Security
                 </span>
               </span>
