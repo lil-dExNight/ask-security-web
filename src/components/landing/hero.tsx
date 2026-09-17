@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { m } from "motion/react";
 import { ArrowUpRight, ChevronDown, ChevronRight, Mail } from "lucide-react";
-import { asset } from "@/lib/asset";
 
 type TermPart = { text: string; cls: string };
 
@@ -92,7 +91,7 @@ export function Hero() {
           >
             <div className="flex items-center gap-5">
               <Image
-                src={asset("/logo-mark.png")}
+                src="/logo-mark.png"
                 alt=""
                 width={920}
                 height={520}

@@ -1,44 +1,67 @@
 # Deployment
 
-The site is deployed to GitHub Pages as a static export. The workflow in
-`.github/workflows/deploy.yml` moves the server-only code (admin panel, API
-routes, middleware) aside, builds with `STATIC_EXPORT=1` and
-`BASE_PATH=/ask-security-web`, and publishes the `out/` directory.
+The site runs as a native Node.js server on [Railway](https://railway.app),
+built from the `Dockerfile` in this repo. Blog and admin panel work in
+production: posts are markdown files on a persistent volume.
 
 ## One-time setup
 
-1. In the GitHub repository, go to **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+1. Create a Railway account at https://railway.app (sign in with GitHub).
+2. **New Project → Deploy from GitHub repo** → pick `ask-security-web`.
+   Railway auto-detects the `Dockerfile` and builds it.
+3. Add a volume so posts survive redeploys: in the service, go to
+   **Volumes → Add Volume**, mount path `/app/content`.
+4. Add an environment variable: **Variables → New Variable**,
+   `ADMIN_PASSWORD=<strong password>`. Without it, `/admin` login stays
+   disabled.
+5. **Settings → Networking → Generate Domain** to get a temporary
+   `*.up.railway.app` domain and test the deployment.
+6. Add the custom domain: **Settings → Networking → Custom Domain** →
+   `asksecurity.xyz` (also add `www.asksecurity.xyz`). Railway shows the
+   CNAME target to point at.
+7. DNS (domain is on Cloudflare DNS, free plan):
+   - Add `asksecurity.xyz` to Cloudflare and set the Cloudflare nameservers
+     at the registrar.
+   - Create a CNAME record: `asksecurity.xyz` → the Railway target from
+     step 6. Cloudflare flattens the apex CNAME automatically.
+   - Create a CNAME record: `www` → the same Railway target.
+8. Verify: `https://asksecurity.xyz` loads, `https://asksecurity.xyz/admin`
+   accepts the password, and a post published in the admin panel shows up at
+   `/blog`.
 
-## Deploy
+## Deploys
 
-Push to `master` (or run the workflow manually via **Actions → Deploy to
-GitHub Pages → Run workflow**). The site is published at:
+Every push to `master` triggers a new build and deploy automatically. No
+GitHub Actions deploy step is involved; `.github/workflows/ci.yml` only runs
+lint + build as the CI gate.
 
-https://lil-dexnight.github.io/ask-security-web/
+## Notes
 
-## Publishing posts
+- Cost: about $5/month with usage-based pricing (Hobby plan).
+- Posts live on the volume (`/app/content/blog`), not in git. Periodically
+  commit `content/blog/` to the repo as a backup. A fresh volume starts
+  empty — the blog shows the empty state until the first post is published.
+- The admin panel runs natively in production at `/admin`; `middleware.ts`
+  guards it with the `ADMIN_PASSWORD` session cookie.
 
-The admin panel and API run only locally; they are excluded from the static
-build.
+## Local development
 
-1. `npm run dev`
-2. Set `ADMIN_PASSWORD` in `.env.local`.
-3. Edit posts at `http://localhost:3000/admin`.
-4. Commit the changed files in `content/blog/` and push — CI rebuilds and
-   deploys the static site.
+```bash
+npm run dev
+```
 
-## Custom domain (later)
+Set the admin password in `.env.local`:
 
-1. Add the domain under **Settings → Pages → Custom domain**.
-2. Add a `public/CNAME` file with the domain name.
-3. In `.github/workflows/deploy.yml`, set `BASE_PATH` to an empty string
-   (and `SITE_URL` in `src/lib/site.ts` to the real domain).
+```bash
+# .env.local
+ADMIN_PASSWORD=your-strong-password
+```
 
-## Limitations
+Then open http://localhost:3000/admin.
 
-- GitHub Pages serves no custom security headers. `public/_headers` is a
-  Cloudflare-only feature and is kept for a possible future move; it is
-  deployed as a plain file and ignored by Pages.
-- The admin panel, API routes and middleware exist only locally
-  (`npm run dev`). They are not part of the deployed site.
+## Docker (manual)
+
+```bash
+docker build -t ask-security-web .
+docker run -e ADMIN_PASSWORD=your-strong-password -p 3000:3000 ask-security-web
+```

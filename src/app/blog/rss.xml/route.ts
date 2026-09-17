@@ -1,7 +1,7 @@
 import { listPosts } from "@/lib/blog";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 function escapeXml(value: string): string {
   return value

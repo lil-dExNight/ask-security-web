@@ -29,10 +29,10 @@ ASK Security landing website. Stack: see STACK.md. Requirements: see BRIEF.md.
 
 ## Phase 4 — Deploy
 
-1. Static export / OpenNext config for Cloudflare
-2. Deploy to Cloudflare Pages
-3. Buy domain, attach, TLS
-4. Verify production: pages load, contacts work, mobile check
+1. Hosting: Railway (native Node server, Dockerfile in repo root)
+2. Domain: asksecurity.xyz (purchased; DNS on Cloudflare)
+3. Setup steps: see DEPLOY.md (volume at /app/content, ADMIN_PASSWORD, custom domain)
+4. Verify production: pages load, /admin login works, publish a post
 
 ## Phase 5 — Blog + admin panel
 

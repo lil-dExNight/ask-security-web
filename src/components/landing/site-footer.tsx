@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Mail, Send, X } from "lucide-react";
-import { asset } from "@/lib/asset";
 
 const FOOTER_NAV = [
   { label: "Services", href: "#services" },
@@ -18,7 +17,7 @@ export function SiteFooter() {
           <div>
             <div className="flex items-center gap-3">
               <Image
-                src={asset("/logo-mark.png")}
+                src="/logo-mark.png"
                 alt=""
                 width={920}
                 height={520}

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { ArrowUpRight, Mail, Send, X } from "lucide-react";
 import { Reveal } from "./reveal";
-import { asset } from "@/lib/asset";
 
 export function Contact() {
   return (
@@ -22,7 +21,7 @@ export function Contact() {
         <div className="relative flex flex-col items-center px-6 py-16 text-center md:px-12 md:py-24">
           <Reveal>
             <Image
-              src={asset("/logo.png")}
+              src="/logo.png"
               alt="ASK Security"
               width={1797}
               height={875}

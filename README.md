@@ -20,7 +20,7 @@ npm run lint   # eslint
 
 ## Hosting
 
-The site is statically exported and deployed to GitHub Pages on every push to `master`. See [DEPLOY.md](DEPLOY.md).
+The site runs as a native Node.js server on Railway (see `Dockerfile`) and auto-deploys on every push to `master`. See [DEPLOY.md](DEPLOY.md).
 
 ## Structure
 

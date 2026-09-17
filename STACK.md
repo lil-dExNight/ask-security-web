@@ -16,7 +16,7 @@ Chosen stack for the ASK Security website.
 
 ## Hosting
 
-- Vercel Pro (commercial use) or Cloudflare via OpenNext (free tier)
+- Railway: native Node.js server (Dockerfile, `output: "standalone"`), persistent volume for blog posts
 
 ## Rationale
 

@@ -59,5 +59,5 @@ Requirements for the ASK Security website.
 
 ## Technical
 
-- Domain: not purchased yet
-- Hosting: Cloudflare
+- Domain: asksecurity.xyz (purchased)
+- Hosting: Railway
