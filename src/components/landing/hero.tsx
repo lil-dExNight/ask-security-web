@@ -101,10 +101,7 @@ export function Hero() {
                 className="pd-logo h-16 w-auto md:h-20"
               />
               <span className="text-3xl font-semibold leading-none tracking-tight text-(--dk-ink) md:text-4xl">
-                ASK
-                <span className="block text-xl font-normal text-(--dk-mist) md:text-2xl">
-                  Security
-                </span>
+                ASK <span className="font-normal text-(--dk-mist)">Security</span>
               </span>
             </div>
           </m.div>
