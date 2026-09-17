@@ -2,11 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { ArrowUpRight, ChevronDown, ChevronRight, Mail } from "lucide-react";
-
-const HEADLINE = "Ship with confidence";
-const SPLIT_AT = 10; // "Ship with "
 
 type TermPart = { text: string; cls: string };
 
@@ -57,26 +54,7 @@ const TERM_LINES: TermPart[][] = [
 const TRUST_ITEMS = ["response < 24h", "fix verification included", "24/7 monitoring"];
 
 export function Hero() {
-  const [typed, setTyped] = useState(0);
   const [lines, setLines] = useState(0);
-
-  useEffect(() => {
-    let i = 0;
-    let interval: number | undefined;
-    const timeout = window.setTimeout(() => {
-      interval = window.setInterval(() => {
-        i += 1;
-        setTyped(i);
-        if (i >= HEADLINE.length && interval !== undefined) {
-          window.clearInterval(interval);
-        }
-      }, 65);
-    }, 500);
-    return () => {
-      window.clearTimeout(timeout);
-      if (interval !== undefined) window.clearInterval(interval);
-    };
-  }, []);
 
   useEffect(() => {
     let i = 0;
@@ -96,9 +74,6 @@ export function Hero() {
     };
   }, []);
 
-  const headPrefix = HEADLINE.slice(0, Math.min(typed, SPLIT_AT));
-  const headRest = typed > SPLIT_AT ? HEADLINE.slice(SPLIT_AT, typed) : "";
-
   return (
     <section id="top" className="relative flex min-h-svh items-center overflow-hidden pt-24 pb-20">
       {/* Background layers */}
@@ -109,7 +84,7 @@ export function Hero() {
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-14 px-5 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
         {/* Left: brand + pitch */}
         <div>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -120,11 +95,12 @@ export function Hero() {
               width={1797}
               height={875}
               priority
+              sizes="99px"
               className="pd-logo h-10 w-auto md:h-12"
             />
-          </motion.div>
+          </m.div>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
@@ -132,20 +108,14 @@ export function Hero() {
           >
             <span className="pd-dot" />
             Web3 security audit unit
-          </motion.p>
+          </m.p>
 
-          <h1
-            aria-label={HEADLINE}
-            className="mt-6 min-h-[2.2em] text-5xl font-bold leading-[1.05] tracking-tight text-(--dk-ink) sm:text-6xl lg:text-7xl"
-          >
-            <span aria-hidden>
-              {headPrefix}
-              <span className="pd-glow text-(--dk-acid)">{headRest}</span>
-              <span className="pd-caret" />
-            </span>
+          <h1 className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-(--dk-ink) sm:text-6xl lg:text-7xl">
+            Ship with <span className="pd-glow text-(--dk-acid)">confidence</span>
+            <span aria-hidden className="pd-caret" />
           </h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -154,9 +124,9 @@ export function Hero() {
             Independent security audits for web3 protocols, infrastructure, and
             wallets. We find the vulnerabilities before someone with worse
             intentions does.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
@@ -165,7 +135,7 @@ export function Hero() {
             <a
               href="https://t.me/asksecurity"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="pd-mono inline-flex items-center gap-2 rounded-md bg-(--dk-acid) px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-[#04120b] transition-shadow duration-300 hover:shadow-[0_0_45px_-8px_var(--dk-acid)]"
             >
               Request an audit
@@ -178,9 +148,9 @@ export function Hero() {
               <Mail className="size-4" />
               ask.security@gmail.com
             </a>
-          </motion.div>
+          </m.div>
 
-          <motion.ul
+          <m.ul
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.4 }}
@@ -192,11 +162,11 @@ export function Hero() {
                 {item}
               </li>
             ))}
-          </motion.ul>
+          </m.ul>
         </div>
 
         {/* Right: terminal window */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -217,7 +187,7 @@ export function Hero() {
             </div>
             <div className="pd-mono min-h-72 space-y-2.5 px-5 py-5 text-[11px] leading-relaxed sm:text-xs md:text-[13px]">
               {TERM_LINES.slice(0, lines).map((parts, i) => (
-                <motion.p
+                <m.p
                   key={i}
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -229,7 +199,7 @@ export function Hero() {
                       {part.text}
                     </span>
                   ))}
-                </motion.p>
+                </m.p>
               ))}
               <p>
                 {lines >= TERM_LINES.length ? (
@@ -249,11 +219,11 @@ export function Hero() {
               </span>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Scroll cue */}
-      <motion.a
+      <m.a
         href="#services"
         aria-label="Scroll to services"
         initial={{ opacity: 0 }}
@@ -262,10 +232,10 @@ export function Hero() {
         className="pd-mono absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.4em] text-(--dk-mist) transition-colors hover:text-(--dk-acid) md:flex"
       >
         Scroll
-        <motion.span animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>
+        <m.span animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>
           <ChevronDown className="size-4" />
-        </motion.span>
-      </motion.a>
+        </m.span>
+      </m.a>
     </section>
   );
 }

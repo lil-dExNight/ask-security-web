@@ -1,7 +1,5 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import { animate, motion, useInView } from "motion/react";
+import { Reveal } from "./reveal";
+import { Counter } from "./counter";
 
 type Stat = {
   prefix?: string;
@@ -26,30 +24,6 @@ const BADGES = [
   "EIP & ERC",
 ];
 
-function Counter({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [display, setDisplay] = useState("0");
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(0, value, {
-      duration: 1.8,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: (latest) => setDisplay(Math.round(latest).toLocaleString("en-US")),
-    });
-    return () => controls.stop();
-  }, [inView, value]);
-
-  return (
-    <span ref={ref}>
-      {prefix}
-      {display}
-      {suffix}
-    </span>
-  );
-}
-
 export function StatsBand() {
   return (
     <section id="stats" aria-label="Key statistics" className="relative scroll-mt-20 border-y border-(--dk-line) bg-(--dk-abyss)/70">
@@ -57,12 +31,13 @@ export function StatsBand() {
       <div className="relative mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
         <div className="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4">
           {STATS.map((stat, i) => (
-            <motion.div
+            <Reveal
               key={stat.label}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              y={28}
+              duration={0.6}
+              margin="-60px"
+              delay={i * 0.1}
+              blur={false}
               className="relative"
             >
               <div
@@ -79,15 +54,16 @@ export function StatsBand() {
               <p className="pd-mono mt-3 text-[11px] font-medium uppercase tracking-[0.25em] text-(--dk-mist)">
                 {stat.label}
               </p>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        <Reveal
+          y={24}
+          duration={0.6}
+          margin="-60px"
+          delay={0.2}
+          blur={false}
           className="mt-14 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-(--dk-line) pt-8"
         >
           <span className="pd-mono text-[11px] uppercase tracking-[0.25em] text-(--dk-mist)">
@@ -104,7 +80,7 @@ export function StatsBand() {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

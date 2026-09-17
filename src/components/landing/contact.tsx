@@ -1,18 +1,16 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "motion/react";
 import { ArrowUpRight, Mail, Send } from "lucide-react";
 import { Reveal } from "./reveal";
 
 export function Contact() {
   return (
     <section id="contact" className="relative scroll-mt-20 px-5 pb-24 md:px-8 md:pb-32">
-      <motion.div
-        initial={{ opacity: 0, y: 48, scale: 0.98 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      <Reveal
+        y={48}
+        scale={0.98}
+        duration={0.85}
+        margin="-80px"
+        blur={false}
         className="relative mx-auto max-w-6xl overflow-hidden rounded-2xl border border-(--dk-acid)/30 bg-(--dk-panel) shadow-[0_0_100px_-30px_var(--dk-acid)]"
       >
         <div aria-hidden className="pd-grid absolute inset-0 opacity-60" />
@@ -27,6 +25,7 @@ export function Contact() {
               alt="ASK Security"
               width={1797}
               height={875}
+              sizes="115px"
               className="pd-logo mx-auto h-12 w-auto md:h-14"
             />
           </Reveal>
@@ -56,7 +55,7 @@ export function Contact() {
               <a
                 href="https://t.me/asksecurity"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="pd-mono inline-flex items-center gap-2 rounded-md bg-(--dk-acid) px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-[#04120b] transition-shadow duration-300 hover:shadow-[0_0_50px_-8px_var(--dk-acid)]"
               >
                 <Send className="size-4" />
@@ -79,7 +78,7 @@ export function Contact() {
             </p>
           </Reveal>
         </div>
-      </motion.div>
+      </Reveal>
     </section>
   );
 }

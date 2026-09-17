@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -26,7 +26,7 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <motion.header
+    <m.header
       initial={{ y: -72, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -44,6 +44,7 @@ export function SiteHeader() {
             width={1797}
             height={875}
             priority
+            sizes="66px"
             className="pd-logo h-8 w-auto"
           />
         </a>
@@ -62,7 +63,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-3">
           <Button
-            render={<a href="https://t.me/asksecurity" target="_blank" rel="noreferrer" />}
+            render={<a href="https://t.me/asksecurity" target="_blank" rel="noopener noreferrer" />}
             className="pd-mono hidden h-9 rounded-md border-(--dk-acid)/50 bg-(--dk-acid)/10 px-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-(--dk-acid) transition-shadow hover:bg-(--dk-acid)/15 hover:shadow-[0_0_28px_-6px_var(--dk-acid)] sm:inline-flex"
           >
             Request an audit
@@ -82,7 +83,7 @@ export function SiteHeader() {
 
       <AnimatePresence>
         {open ? (
-          <motion.nav
+          <m.nav
             aria-label="Mobile"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -104,7 +105,7 @@ export function SiteHeader() {
               <a
                 href="https://t.me/asksecurity"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
                 className="pd-mono mt-2 inline-flex items-center justify-center gap-2 rounded-md border border-(--dk-acid)/50 bg-(--dk-acid)/10 px-3 py-2.5 text-xs font-semibold uppercase tracking-[0.25em] text-(--dk-acid)"
               >
@@ -112,9 +113,9 @@ export function SiteHeader() {
                 <ArrowUpRight className="size-3.5" />
               </a>
             </div>
-          </motion.nav>
+          </m.nav>
         ) : null}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   );
 }

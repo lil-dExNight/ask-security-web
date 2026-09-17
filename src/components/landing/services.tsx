@@ -1,9 +1,7 @@
-"use client";
-
-import { motion } from "motion/react";
 import { CodeXml, Crosshair, Radar, ServerCog } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { SectionHeading } from "./section-heading";
+import { Reveal } from "./reveal";
 
 type Service = {
   icon: LucideIcon;
@@ -61,12 +59,14 @@ export function Services() {
 
         <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-12">
           {SERVICES.map((service, i) => (
-            <motion.article
+            <Reveal
               key={service.title}
-              initial={{ opacity: 0, y: 36 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.65, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              as="article"
+              y={36}
+              duration={0.65}
+              margin="-60px"
+              delay={i * 0.08}
+              blur={false}
               className={`group relative overflow-hidden rounded-xl border border-(--dk-line) bg-(--dk-panel)/70 p-6 transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-(--dk-acid)/60 hover:shadow-[0_0_50px_-16px_var(--dk-acid)] md:p-8 ${service.span}`}
             >
               <div
@@ -97,7 +97,7 @@ export function Services() {
                   </li>
                 ))}
               </ul>
-            </motion.article>
+            </Reveal>
           ))}
         </div>
       </div>

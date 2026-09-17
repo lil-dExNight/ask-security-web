@@ -20,6 +20,7 @@ export function SiteFooter() {
               alt="ASK Security"
               width={1797}
               height={875}
+              sizes="66px"
               className="pd-logo h-8 w-auto"
             />
             <p className="pd-mono mt-5 text-[11px] font-medium uppercase tracking-[0.4em] text-(--dk-acid)">
@@ -49,7 +50,7 @@ export function SiteFooter() {
             <a
               href="https://t.me/asksecurity"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="pd-mono inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-(--dk-mist) transition-colors hover:text-(--dk-acid)"
             >
               <Send className="size-3.5" />

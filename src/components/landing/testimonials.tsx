@@ -1,7 +1,5 @@
-"use client";
-
-import { motion } from "motion/react";
 import { SectionHeading } from "./section-heading";
+import { Reveal } from "./reveal";
 
 type Testimonial = {
   quote: string;
@@ -50,12 +48,14 @@ export function Testimonials() {
 
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {TESTIMONIALS.map((item, i) => (
-            <motion.figure
+            <Reveal
               key={item.name}
-              initial={{ opacity: 0, y: 36 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.65, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              as="figure"
+              y={36}
+              duration={0.65}
+              margin="-60px"
+              delay={i * 0.1}
+              blur={false}
               className="group relative flex flex-col rounded-xl border border-(--dk-line) bg-(--dk-panel)/70 p-6 transition-[border-color,box-shadow] duration-300 hover:border-(--dk-acid)/60 hover:shadow-[0_0_50px_-16px_var(--dk-acid)] md:p-7"
             >
               <span
@@ -78,7 +78,7 @@ export function Testimonials() {
                   </span>
                 </span>
               </figcaption>
-            </motion.figure>
+            </Reveal>
           ))}
         </div>
       </div>
