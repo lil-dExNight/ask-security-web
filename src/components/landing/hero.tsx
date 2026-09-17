@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { m } from "motion/react";
 import { ArrowUpRight, ChevronDown, ChevronRight, Mail } from "lucide-react";
+import { asset } from "@/lib/asset";
 
 type TermPart = { text: string; cls: string };
 
@@ -90,13 +91,13 @@ export function Hero() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <Image
-              src="/logo.png"
-              alt="ASK Security"
-              width={1797}
-              height={875}
+              src={asset("/logo-mark.png")}
+              alt="ASK Security eye mark"
+              width={920}
+              height={520}
               priority
-              sizes="99px"
-              className="pd-logo h-10 w-auto md:h-12"
+              sizes="142px"
+              className="pd-logo h-16 w-auto md:h-20"
             />
           </m.div>
 

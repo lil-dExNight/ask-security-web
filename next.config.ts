@@ -23,6 +23,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   output: isStaticExport ? "export" : undefined,
   poweredByHeader: false,
+  // Exposed to client code so asset() can prefix public-asset URLs; next/image
+  // does not apply basePath to src. Empty in normal (server) mode.
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
   ...(isStaticExport
     ? {
         // Static export has no image server; GitHub Pages ignores custom headers.

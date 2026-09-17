@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, m } from "motion/react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { asset } from "@/lib/asset";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
@@ -40,7 +41,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 md:px-8">
         <a href="#top" aria-label="ASK Security — back to top" className="flex items-center">
           <Image
-            src="/logo.png"
+            src={asset("/logo.png")}
             alt="ASK Security"
             width={1797}
             height={875}
