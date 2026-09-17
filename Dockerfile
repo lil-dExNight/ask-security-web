@@ -1,6 +1,5 @@
-# syntax=docker.io/docker/dockerfile:1
-
 # Based on the official Next.js Docker example (output: "standalone").
+# Note: no `# syntax=` directive — Railway's builder rejects custom frontends.
 
 FROM node:22-alpine AS base
 
