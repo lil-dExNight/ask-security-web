@@ -38,9 +38,9 @@ const SERVICES: Service[] = [
   },
   {
     icon: Radar,
-    title: "Post-Deployment Monitoring & Support",
+    title: "Continuous Security Monitoring",
     description:
-      "24/7 on-chain monitoring with real-time alerts. We watch your contracts after launch and respond when it matters most.",
+      "Post-deployment watch over your contracts with real-time alerts. We flag anomalies as they happen and support your incident response.",
     tags: ["on-chain alerts", "incident response"],
     span: "lg:col-span-7",
   },

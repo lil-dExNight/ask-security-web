@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowUpRight, Mail, Send } from "lucide-react";
+import { ArrowUpRight, Mail, Send, X } from "lucide-react";
 import { Reveal } from "./reveal";
 import { asset } from "@/lib/asset";
 
@@ -62,6 +62,15 @@ export function Contact() {
                 <Send className="size-4" />
                 t.me/asksecurity
                 <ArrowUpRight className="size-4" />
+              </a>
+              <a
+                href="https://x.com/asksecurity"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pd-mono inline-flex items-center gap-2 rounded-md border border-(--dk-line) bg-(--dk-void)/60 px-7 py-3.5 text-sm font-medium text-(--dk-ink) transition-colors duration-300 hover:border-(--dk-acid)/60 hover:text-(--dk-acid)"
+              >
+                <X className="size-4" />
+                x.com/asksecurity
               </a>
               <a
                 href="mailto:ask.security@gmail.com"

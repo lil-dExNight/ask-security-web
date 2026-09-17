@@ -2,6 +2,7 @@
 title: "Top 5 DeFi Vulnerabilities We Keep Seeing in 2026"
 date: "2026-09-02"
 excerpt: "Reentrancy is old news. The bugs draining protocols this year are subtler: oracle games, cross-chain replay, and accounting drift."
+draft: true
 tags: ["defi", "vulnerabilities", "research"]
 ---
 

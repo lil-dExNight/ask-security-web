@@ -3,7 +3,6 @@ import { Hero } from "@/components/landing/hero";
 import { Services } from "@/components/landing/services";
 import { StatsBand } from "@/components/landing/stats-band";
 import { Cases } from "@/components/landing/cases";
-import { Testimonials } from "@/components/landing/testimonials";
 import { Contact } from "@/components/landing/contact";
 import { SiteFooter } from "@/components/landing/site-footer";
 
@@ -18,7 +17,6 @@ export default function HomePage() {
         <Services />
         <StatsBand />
         <Cases />
-        <Testimonials />
         <Contact />
       </main>
       <SiteFooter />

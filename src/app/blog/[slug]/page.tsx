@@ -8,7 +8,10 @@ import { SiteHeader } from "@/components/landing/site-header";
 import { SiteFooter } from "@/components/landing/site-footer";
 
 export function generateStaticParams() {
-  return listPosts().map((post) => ({ slug: post.slug }));
+  const posts = listPosts();
+  // output: export requires at least one param; the placeholder 404s.
+  if (posts.length === 0) return [{ slug: "placeholder" }];
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 const dateFmt = new Intl.DateTimeFormat("en-US", {

@@ -2,6 +2,7 @@
 title: "How We Audit Smart Contracts: A Walkthrough of Our Process"
 date: "2026-08-20"
 excerpt: "From threat modeling to the final report — a transparent look at the five phases every ASK Security audit goes through."
+draft: true
 tags: ["audits", "solidity", "methodology"]
 ---
 

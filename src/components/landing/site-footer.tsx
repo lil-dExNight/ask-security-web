@@ -1,12 +1,11 @@
 import Image from "next/image";
-import { Mail, Send } from "lucide-react";
+import { Mail, Send, X } from "lucide-react";
 import { asset } from "@/lib/asset";
 
 const FOOTER_NAV = [
   { label: "Services", href: "#services" },
   { label: "Stats", href: "#stats" },
   { label: "Cases", href: "#cases" },
-  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
   { label: "Blog", href: "/blog" },
 ];
@@ -57,6 +56,15 @@ export function SiteFooter() {
             >
               <Send className="size-3.5" />
               Telegram — @asksecurity
+            </a>
+            <a
+              href="https://x.com/asksecurity"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pd-mono inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-(--dk-mist) transition-colors hover:text-(--dk-acid)"
+            >
+              <X className="size-3.5" />
+              X — @asksecurity
             </a>
             <a
               href="mailto:ask.security@gmail.com"

@@ -52,7 +52,7 @@ const TERM_LINES: TermPart[][] = [
   ],
 ];
 
-const TRUST_ITEMS = ["response < 24h", "fix verification included", "24/7 monitoring"];
+const TRUST_ITEMS = ["response < 24h", "fix verification included", "continuous monitoring"];
 
 export function Hero() {
   const [lines, setLines] = useState(0);

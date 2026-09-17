@@ -7,21 +7,14 @@ type Stat = {
   suffix?: string;
   staticText?: string;
   label: string;
+  sub: string;
 };
 
 const STATS: Stat[] = [
-  { value: 50, suffix: "+", label: "Audits completed" },
-  { value: 1200, suffix: "+", label: "Vulnerabilities found" },
-  { prefix: "$", value: 400, suffix: "M+", label: "Assets secured" },
-  { staticText: "24/7", label: "Post-deployment monitoring" },
-];
-
-const BADGES = [
-  "ISO/IEC 27001",
-  "SOC 2 Type II",
-  "OWASP SCVS",
-  "CVSS v3.1",
-  "EIP & ERC",
+  { value: 24, label: "Vulnerabilities reported", sub: "2 High · 8 Medium" },
+  { value: 2, label: "Audit engagements", sub: "Sherlock contest · private audit" },
+  { staticText: "∞", label: "Security research", sub: "Always in progress" },
+  { staticText: "< 24h", label: "Response time", sub: "First reply guaranteed" },
 ];
 
 export function StatsBand() {
@@ -54,33 +47,12 @@ export function StatsBand() {
               <p className="pd-mono mt-3 text-[11px] font-medium uppercase tracking-[0.25em] text-(--dk-mist)">
                 {stat.label}
               </p>
+              <p className="pd-mono mt-1.5 text-[10px] uppercase tracking-[0.15em] text-(--dk-mist)/60">
+                {stat.sub}
+              </p>
             </Reveal>
           ))}
         </div>
-
-        <Reveal
-          y={24}
-          duration={0.6}
-          margin="-60px"
-          delay={0.2}
-          blur={false}
-          className="mt-14 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-(--dk-line) pt-8"
-        >
-          <span className="pd-mono text-[11px] uppercase tracking-[0.25em] text-(--dk-mist)">
-            Methodology aligned with
-          </span>
-          <ul className="flex flex-wrap items-center gap-2.5">
-            {BADGES.map((badge) => (
-              <li
-                key={badge}
-                className="pd-mono flex items-center gap-2 rounded border border-(--dk-line) px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-(--dk-ink)/75 transition-colors hover:border-(--dk-acid)/50 hover:text-(--dk-acid)"
-              >
-                <span aria-hidden className="size-1 bg-(--dk-acid)" />
-                {badge}
-              </li>
-            ))}
-          </ul>
-        </Reveal>
       </div>
     </section>
   );
