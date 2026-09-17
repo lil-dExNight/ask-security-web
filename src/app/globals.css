@@ -310,6 +310,7 @@
   color: var(--dk-ink);
   font-size: 1rem;
   line-height: 1.8;
+  overflow-wrap: anywhere;
 }
 
 .blog-prose > * + * {
@@ -459,6 +460,10 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
+}
+
+.blog-prose .table-scroll {
+  overflow-x: auto;
 }
 
 .blog-prose th,

@@ -36,6 +36,14 @@ export function Markdown({ source }: MarkdownProps) {
               </a>
             );
           },
+          table: (rawProps) => {
+            const props = domProps(rawProps);
+            return (
+              <div className="table-scroll">
+                <table {...props} />
+              </div>
+            );
+          },
         }}
       >
         {source}
