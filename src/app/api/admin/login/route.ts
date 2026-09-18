@@ -6,6 +6,8 @@ export const dynamic = "force-dynamic";
 
 const MAX_FAILURES = 5;
 const BLOCK_DURATION_MS = 15 * 60 * 1000;
+const GLOBAL_MAX_FAILURES = 20;
+const MAX_ENTRIES = 1000;
 
 interface AttemptState {
   failures: number;
@@ -16,9 +18,23 @@ interface AttemptState {
 // shared across replicas. Fine for single-instance deploys.
 const attempts = new Map<string, AttemptState>();
 
+// Global lockout stops distributed guessing that rotates source IPs.
+const global = { failures: [] as number[], blockedUntil: 0 };
+
 function clientIp(request: NextRequest): string {
+  // cf-connecting-ip is set by the Cloudflare edge and cannot be spoofed
+  // through the proxy.
+  const cf = request.headers.get("cf-connecting-ip")?.trim();
+  if (cf) return cf;
+  // The last x-forwarded-for value is the one the edge appended; earlier
+  // values are client-controlled.
   const forwarded = request.headers.get("x-forwarded-for");
-  return forwarded?.split(",")[0]?.trim() || "unknown";
+  const last = forwarded
+    ?.split(",")
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .pop();
+  return last || "unknown";
 }
 
 function isBlocked(ip: string): boolean {
@@ -29,13 +45,32 @@ function isBlocked(ip: string): boolean {
   return false;
 }
 
+// Bound the map size: evict the oldest-expiring entries before inserting.
+function evictIfFull(): void {
+  if (attempts.size < MAX_ENTRIES) return;
+  const excess = attempts.size - MAX_ENTRIES + 1;
+  const oldest = [...attempts.entries()]
+    .sort((a, b) => a[1].blockedUntil - b[1].blockedUntil)
+    .slice(0, excess);
+  for (const [key] of oldest) attempts.delete(key);
+}
+
 function recordFailure(ip: string): void {
   const state = attempts.get(ip) ?? { failures: 0, blockedUntil: 0 };
   state.failures += 1;
   if (state.failures >= MAX_FAILURES) {
     state.blockedUntil = Date.now() + BLOCK_DURATION_MS;
   }
+  if (!attempts.has(ip)) evictIfFull();
   attempts.set(ip, state);
+
+  const now = Date.now();
+  global.failures = global.failures.filter((t) => now - t < BLOCK_DURATION_MS);
+  global.failures.push(now);
+  if (global.failures.length >= GLOBAL_MAX_FAILURES) {
+    global.blockedUntil = now + BLOCK_DURATION_MS;
+    global.failures = [];
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -46,7 +81,7 @@ export async function POST(request: NextRequest) {
     );
   }
   const ip = clientIp(request);
-  if (isBlocked(ip)) {
+  if (isBlocked(ip) || global.blockedUntil > Date.now()) {
     return NextResponse.json({ error: "Too many attempts" }, { status: 429 });
   }
   let body: unknown;

@@ -14,18 +14,21 @@ production: posts are markdown files on a persistent volume.
 4. Add an environment variable: **Variables → New Variable**,
    `ADMIN_PASSWORD=<strong password>`. Without it, `/admin` login stays
    disabled.
-5. **Settings → Networking → Generate Domain** to get a temporary
+5. Optionally set `SESSION_SECRET=<random string>`: it signs the admin
+   session cookie instead of the password (falls back to `ADMIN_PASSWORD`;
+   recommended for production).
+6. **Settings → Networking → Generate Domain** to get a temporary
    `*.up.railway.app` domain and test the deployment.
-6. Add the custom domain: **Settings → Networking → Custom Domain** →
+7. Add the custom domain: **Settings → Networking → Custom Domain** →
    `asksecurity.xyz` (also add `www.asksecurity.xyz`). Railway shows the
    CNAME target to point at.
-7. DNS (domain is on Cloudflare DNS, free plan):
+8. DNS (domain is on Cloudflare DNS, free plan):
    - Add `asksecurity.xyz` to Cloudflare and set the Cloudflare nameservers
      at the registrar.
    - Create a CNAME record: `asksecurity.xyz` → the Railway target from
-     step 6. Cloudflare flattens the apex CNAME automatically.
+     step 7. Cloudflare flattens the apex CNAME automatically.
    - Create a CNAME record: `www` → the same Railway target.
-8. Verify: `https://asksecurity.xyz` loads, `https://asksecurity.xyz/admin`
+9. Verify: `https://asksecurity.xyz` loads, `https://asksecurity.xyz/admin`
    accepts the password, and a post published in the admin panel shows up at
    `/blog`.
 

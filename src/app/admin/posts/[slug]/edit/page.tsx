@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
 import { getPost } from "@/lib/blog";
 import type { Post } from "@/lib/blog";
 import { PostEditor } from "../../../post-editor";
@@ -12,6 +13,7 @@ export default async function EditPostPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  if (!(await getSession())) redirect("/admin/login");
   const { slug } = await params;
   let post: Post | null = null;
   try {

@@ -8,20 +8,27 @@ export interface SessionPayload {
   exp: number;
 }
 
-function getSecret(): string | null {
+function getPassword(): string | null {
   const password = process.env.ADMIN_PASSWORD;
   return password ? password : null;
 }
 
+// Session HMAC key: a dedicated SESSION_SECRET decouples cookie validity from
+// the admin password. The fallback keeps existing deployments working.
+function getSecret(): string | null {
+  const secret = process.env.SESSION_SECRET || process.env.ADMIN_PASSWORD;
+  return secret ? secret : null;
+}
+
 export function isAdminConfigured(): boolean {
-  return getSecret() !== null;
+  return getPassword() !== null;
 }
 
 export function login(password: unknown): boolean {
-  const secret = getSecret();
-  if (!secret || typeof password !== "string") return false;
+  const expected = getPassword();
+  if (!expected || typeof password !== "string") return false;
   const a = crypto.createHash("sha256").update(password).digest();
-  const b = crypto.createHash("sha256").update(secret).digest();
+  const b = crypto.createHash("sha256").update(expected).digest();
   return crypto.timingSafeEqual(a, b);
 }
 

@@ -54,10 +54,24 @@ async function hasValidSession(token: string | undefined, secret: string): Promi
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  if (pathname === "/admin/login" || pathname === "/api/admin/login") {
+  // CSRF hardening: browsers send sec-fetch-site on fetch; reject cross-site
+  // mutations outright. Runs before the session check so it also covers login.
+  if (
+    pathname.startsWith("/api/admin/") &&
+    !["GET", "HEAD", "OPTIONS"].includes(request.method) &&
+    request.headers.get("sec-fetch-site") === "cross-site"
+  ) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  if (
+    pathname === "/admin/login" ||
+    pathname === "/api/admin/login" ||
+    pathname === "/api/admin/logout"
+  ) {
     return NextResponse.next();
   }
-  const secret = process.env.ADMIN_PASSWORD;
+  // Key source must match getSecret() in src/lib/auth.ts.
+  const secret = process.env.SESSION_SECRET || process.env.ADMIN_PASSWORD;
   const token = request.cookies.get(COOKIE_NAME)?.value;
   const valid = secret ? await hasValidSession(token, secret) : false;
   if (valid) return NextResponse.next();
