@@ -44,7 +44,7 @@ function PostCard({ post }: { post: PostMeta }) {
         <div className="flex items-center justify-between gap-4">
           <time
             dateTime={post.date}
-            className="pd-mono text-[11px] uppercase tracking-[0.25em] text-(--dk-mist)"
+            className="font-mono text-[11px] uppercase tracking-[0.25em] text-(--dk-mist)"
           >
             {formatDate(post.date)}
           </time>
@@ -61,7 +61,7 @@ function PostCard({ post }: { post: PostMeta }) {
             {post.tags.map((tag) => (
               <li
                 key={tag}
-                className="pd-mono border border-(--dk-line) px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-(--dk-mist) transition-colors group-hover:border-(--dk-acid)/40 group-hover:text-(--dk-acid)"
+                className="font-mono border border-(--dk-line) px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-(--dk-mist) transition-colors group-hover:border-(--dk-acid)/40 group-hover:text-(--dk-acid)"
               >
                 {tag}
               </li>
@@ -81,7 +81,7 @@ export default function BlogIndexPage() {
       <SiteHeader />
       <main className="flex-1 pt-16">
         <div className="mx-auto max-w-6xl px-5 pb-24 pt-14 md:px-8 md:pt-20">
-          <p className="pd-mono flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.35em] text-(--dk-acid)">
+          <p className="font-mono flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.35em] text-(--dk-acid)">
             <span className="inline-block h-px w-8 bg-(--dk-acid)/60" />
             {"// Research notes"}
           </p>
@@ -96,7 +96,7 @@ export default function BlogIndexPage() {
           </div>
 
           {posts.length === 0 ? (
-            <p className="pd-mono mt-16 border border-dashed border-(--dk-line) bg-(--dk-panel)/30 px-6 py-14 text-center text-xs uppercase tracking-[0.25em] text-(--dk-mist)">
+            <p className="font-mono mt-16 border border-dashed border-(--dk-line) bg-(--dk-panel)/30 px-6 py-14 text-center text-xs uppercase tracking-[0.25em] text-(--dk-mist)">
               No posts published yet — check back soon
             </p>
           ) : (

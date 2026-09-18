@@ -19,7 +19,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <header className="sticky top-0 z-20 border-b border-(--dk-line) bg-(--dk-abyss)/90 backdrop-blur">
         <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-6">
-            <Link href="/admin" className="pd-mono text-sm font-semibold tracking-wide">
+            <Link href="/admin" className="font-mono text-sm font-semibold tracking-wide">
               ASK <span className="text-(--dk-acid)">Admin</span>
             </Link>
             <nav className="flex items-center gap-4 text-sm text-(--dk-mist)">

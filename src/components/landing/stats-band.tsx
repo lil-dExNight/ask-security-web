@@ -1,49 +1,62 @@
 import { Reveal } from "./reveal";
-import { Counter } from "./counter";
 
-type Stat = {
-  value: number;
-  label: string;
-  sub: string;
-};
-
-const STATS: Stat[] = [
-  { value: 24, label: "Vulnerabilities reported", sub: "2 High · 8 Medium" },
-  { value: 2, label: "Audit engagements", sub: "Sherlock contest · private audit" },
+const SEVERITY_MIX = [
+  { label: "high", count: 2 },
+  { label: "medium", count: 8 },
+  { label: "low", count: 8 },
+  { label: "informational", count: 6 },
 ];
 
 export function StatsBand() {
   return (
-    <section id="stats" aria-label="Key statistics" className="relative scroll-mt-20 border-y border-(--dk-line) bg-(--dk-abyss)/70">
-      <div aria-hidden className="pd-grid absolute inset-0 opacity-40 [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]" />
-      <div className="relative mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-12">
-          {STATS.map((stat, i) => (
-            <Reveal
-              key={stat.label}
-              y={28}
-              duration={0.6}
-              margin="-60px"
-              delay={i * 0.1}
-              blur={false}
-              className="relative"
-            >
-              <div
-                aria-hidden
-                className="absolute -left-3 top-1 h-[calc(100%-0.5rem)] w-px bg-linear-to-b from-transparent via-(--dk-acid)/50 to-transparent md:-left-6"
-              />
-              <p className="pd-mono pd-glow text-4xl font-bold tracking-tight text-(--dk-acid) md:text-5xl">
-                <Counter value={stat.value} />
-              </p>
-              <p className="pd-mono mt-3 text-[11px] font-medium uppercase tracking-[0.25em] text-(--dk-mist)">
-                {stat.label}
-              </p>
-              <p className="pd-mono mt-1.5 text-[10px] uppercase tracking-[0.15em] text-(--dk-mist)/60">
-                {stat.sub}
-              </p>
-            </Reveal>
-          ))}
-        </div>
+    <section
+      id="stats"
+      aria-label="Key statistics"
+      className="scroll-mt-20 border-y border-(--dk-line) bg-(--dk-abyss)"
+    >
+      <div className="mx-auto grid max-w-[1200px] gap-12 px-5 py-20 md:grid-cols-12 md:px-10 md:py-28">
+        <Reveal className="md:col-span-4">
+          <div>
+            <p className="text-[clamp(80px,10vw,140px)] font-bold leading-[0.9] tracking-[-0.04em] text-(--dk-acid)">
+              24
+            </p>
+            <p className="font-mono mt-4 text-[12px] text-(--dk-mist)">
+              vulnerabilities found
+              <br />
+              across all engagements
+            </p>
+          </div>
+        </Reveal>
+        <Reveal className="md:col-span-4" delay={80}>
+          <div>
+            <p className="text-[clamp(80px,10vw,140px)] font-bold leading-[0.9] tracking-[-0.04em] text-(--dk-acid)">
+              2
+            </p>
+            <p className="font-mono mt-4 text-[12px] text-(--dk-mist)">
+              engagements — contest audits
+              <br />
+              and one private audit
+            </p>
+          </div>
+        </Reveal>
+        <Reveal className="md:col-span-4 md:self-end" delay={160}>
+          <div>
+            <p className="font-mono text-[12px] text-(--dk-mist)">
+              severity mix to date
+            </p>
+            <ul className="font-mono mt-4 space-y-2 text-[13px]">
+              {SEVERITY_MIX.map((row, i) => (
+                <li
+                  key={row.label}
+                  className={`flex justify-between ${i < SEVERITY_MIX.length - 1 ? "border-b border-(--dk-line) pb-2" : ""}`}
+                >
+                  <span>{row.label}</span>
+                  <span className="text-(--dk-mist)">{row.count}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,80 +1,57 @@
-import Image from "next/image";
-import { ArrowUpRight, Mail, Send, X } from "lucide-react";
+import { SITE_CONTACTS } from "@/lib/site";
 import { Reveal } from "./reveal";
 
 export function Contact() {
   return (
-    <section id="contact" className="relative scroll-mt-20 px-5 pb-24 md:px-8 md:pb-32">
-      <Reveal
-        y={48}
-        scale={0.98}
-        duration={0.85}
-        margin="-80px"
-        blur={false}
-        className="relative mx-auto max-w-6xl overflow-hidden rounded-2xl border border-(--dk-acid)/30 bg-(--dk-panel) shadow-[0_0_100px_-30px_var(--dk-acid)]"
-      >
-        <div aria-hidden className="pd-grid absolute inset-0 opacity-60" />
-        <div aria-hidden className="absolute -top-32 left-1/2 h-80 w-160 -translate-x-1/2 rounded-full bg-(--dk-acid)/10 blur-[110px]" />
-        <span aria-hidden className="absolute left-0 top-0 size-9 border-l-2 border-t-2 border-(--dk-acid)/70" />
-        <span aria-hidden className="absolute bottom-0 right-0 size-9 border-b-2 border-r-2 border-(--dk-acid)/70" />
-
-        <div className="relative flex flex-col items-center px-6 py-16 text-center md:px-12 md:py-24">
-          <Reveal>
-            <Image
-              src="/logo.png"
-              alt="ASK Security"
-              width={1797}
-              height={875}
-              sizes="115px"
-              className="pd-logo mx-auto h-12 w-auto md:h-14"
-            />
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <p className="pd-mono mt-10 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.35em] text-(--dk-acid)">
-              <span className="pd-dot" />
-              {"// Contact"}
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.18}>
-            <h2 className="mt-5 max-w-2xl text-4xl font-bold tracking-tight text-(--dk-ink) md:text-6xl">
-              Ready to <span className="pd-glow text-(--dk-acid)">ship secure</span>?
+    <section id="contact" className="scroll-mt-20">
+      <div className="mx-auto max-w-[1200px] px-5 py-24 md:px-10 md:py-36">
+        <Reveal className="indent-3">
+          <div className="flex items-baseline justify-between gap-6">
+            <h2 className="max-w-[14ch] text-[clamp(36px,6vw,72px)] font-semibold leading-[1.05] tracking-[-0.03em]">
+              Tell us what you&rsquo;re building.
             </h2>
-          </Reveal>
-
-          <Reveal delay={0.26}>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <span className="font-mono hidden text-[12px] text-(--dk-mist) md:block">
+              ( contact )
+            </span>
+          </div>
+        </Reveal>
+        <Reveal className="indent-3" delay={100}>
+          <div>
+            <p className="font-mono mt-6 text-[13px] text-(--dk-mist)">
+              <span className="mr-2 text-(--dk-acid)">●</span>
+              available for engagements
+            </p>
+            <p className="mt-4 max-w-[48ch] text-[16px] leading-relaxed text-(--dk-mist)">
+              Code, nodes, or something that doesn&rsquo;t exist yet — we read
+              it before someone else does. We are taking on new audits.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
               <a
-                href="https://t.me/asksecurity"
+                href={SITE_CONTACTS.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pd-mono inline-flex items-center gap-2 rounded-md bg-(--dk-acid) px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-[#04120b] transition-shadow duration-300 hover:shadow-[0_0_50px_-8px_var(--dk-acid)]"
+                className="btn-pill text-[15px]"
               >
-                <Send className="size-4" />
-                t.me/asksecurity
-                <ArrowUpRight className="size-4" />
+                Message us on Telegram
               </a>
               <a
-                href="https://x.com/asksecurity"
+                href={SITE_CONTACTS.x}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pd-mono inline-flex items-center gap-2 rounded-md border border-(--dk-line) bg-(--dk-void)/60 px-7 py-3.5 text-sm font-medium text-(--dk-ink) transition-colors duration-300 hover:border-(--dk-acid)/60 hover:text-(--dk-acid)"
+                className="acid-link font-mono text-[13px]"
               >
-                <X className="size-4" />
                 x.com/asksecurity
               </a>
               <a
-                href="mailto:ask.security@gmail.com"
-                className="pd-mono inline-flex items-center gap-2 rounded-md border border-(--dk-line) bg-(--dk-void)/60 px-7 py-3.5 text-sm font-medium text-(--dk-ink) transition-colors duration-300 hover:border-(--dk-acid)/60 hover:text-(--dk-acid)"
+                href={`mailto:${SITE_CONTACTS.email}`}
+                className="acid-link font-mono text-[13px]"
               >
-                <Mail className="size-4" />
-                ask.security@gmail.com
+                {SITE_CONTACTS.email}
               </a>
             </div>
-          </Reveal>
-        </div>
-      </Reveal>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

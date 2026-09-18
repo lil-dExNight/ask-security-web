@@ -187,7 +187,7 @@ export function PostEditor({ mode, initialPost }: PostEditorProps) {
               setDirty(true);
             }}
             placeholder="auto-generated-from-title"
-            className={`${inputClass} pd-mono`}
+            className={`${inputClass} font-mono`}
           />
         </div>
         <div>
@@ -202,7 +202,7 @@ export function PostEditor({ mode, initialPost }: PostEditorProps) {
               setDate(event.target.value);
               setDirty(true);
             }}
-            className={`${inputClass} pd-mono`}
+            className={`${inputClass} font-mono`}
           />
         </div>
         <div className="flex items-end pb-1">
@@ -267,7 +267,7 @@ export function PostEditor({ mode, initialPost }: PostEditorProps) {
             rows={24}
             spellCheck={false}
             placeholder="Write your post in Markdown…"
-            className={`${inputClass} pd-mono resize-y leading-relaxed`}
+            className={`${inputClass} font-mono resize-y leading-relaxed`}
           />
         </div>
         {showPreview && (

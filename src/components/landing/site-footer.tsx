@@ -1,88 +1,84 @@
-import Image from "next/image";
-import { Mail, Send, X } from "lucide-react";
-
-const FOOTER_NAV = [
-  { label: "Services", href: "#services" },
-  { label: "Stats", href: "#stats" },
-  { label: "Cases", href: "#cases" },
-  { label: "Contact", href: "#contact" },
-  { label: "Blog", href: "/blog" },
-];
+import Link from "next/link";
+import { SITE_CONTACTS, SITE_NAME } from "@/lib/site";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-(--dk-line) bg-(--dk-abyss)">
-      <div className="mx-auto max-w-6xl px-5 py-14 md:px-8">
-        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+      <div className="mx-auto max-w-[1200px] px-5 pb-10 pt-16 md:px-10 md:pt-20">
+        <p className="text-[clamp(56px,11vw,160px)] font-bold leading-[0.92] tracking-[-0.03em]">
+          ASK Security
+        </p>
+        <div className="mt-14 grid gap-10 border-t border-(--dk-line) pt-8 md:grid-cols-3">
           <div>
-            <div className="flex items-center gap-3">
-              <Image
-                src="/logo-mark.png"
-                alt=""
-                width={920}
-                height={520}
-                sizes="32px"
-                className="pd-logo h-8 w-auto"
-              />
-              <span className="text-xl font-semibold tracking-tight text-(--dk-ink)">
-                ASK <span className="font-normal text-(--dk-mist)">Security</span>
-              </span>
-            </div>
-            <p className="pd-mono mt-5 text-[11px] font-medium uppercase tracking-[0.4em] text-(--dk-acid)">
-              Web3 security audits
-            </p>
+            <p className="font-mono text-[12px] text-(--dk-mist)">index</p>
+            <ul className="mt-4 space-y-2 text-[14px]">
+              <li>
+                <Link href="/#services" className="acid-link">
+                  What we do
+                </Link>
+              </li>
+              <li>
+                <Link href="/#cases" className="acid-link">
+                  Selected engagements
+                </Link>
+              </li>
+              <li>
+                <Link href="/#contact" className="acid-link">
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="acid-link">
+                  Blog
+                </Link>
+              </li>
+            </ul>
           </div>
-
-          <nav aria-label="Footer" className="flex flex-col gap-2.5">
-            <p className="pd-mono text-[10px] uppercase tracking-[0.3em] text-(--dk-mist)">
-              Navigate
+          <div>
+            <p className="font-mono text-[12px] text-(--dk-mist)">contact</p>
+            <ul className="font-mono mt-4 space-y-2 text-[13px]">
+              <li>
+                <a
+                  href={SITE_CONTACTS.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="acid-link"
+                >
+                  telegram → t.me/asksecurity
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE_CONTACTS.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="acid-link"
+                >
+                  x → x.com/asksecurity
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${SITE_CONTACTS.email}`} className="acid-link">
+                  {SITE_CONTACTS.email}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="md:text-right">
+            <p className="font-mono text-[12px] text-(--dk-mist)">record</p>
+            <p className="font-mono mt-4 text-[13px] leading-relaxed">
+              24 vulnerabilities found
+              <br />
+              2 engagements
             </p>
-            {FOOTER_NAV.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="pd-mono text-xs uppercase tracking-[0.2em] text-(--dk-mist) transition-colors hover:text-(--dk-acid)"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex flex-col gap-2.5">
-            <p className="pd-mono text-[10px] uppercase tracking-[0.3em] text-(--dk-mist)">
-              Contact
-            </p>
-            <a
-              href="https://t.me/asksecurity"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pd-mono inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-(--dk-mist) transition-colors hover:text-(--dk-acid)"
-            >
-              <Send className="size-3.5" />
-              Telegram — @asksecurity
-            </a>
-            <a
-              href="https://x.com/asksecurity"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pd-mono inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-(--dk-mist) transition-colors hover:text-(--dk-acid)"
-            >
-              <X className="size-3.5" />
-              X — @asksecurity
-            </a>
-            <a
-              href="mailto:ask.security@gmail.com"
-              className="pd-mono inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-(--dk-mist) transition-colors hover:text-(--dk-acid)"
-            >
-              <Mail className="size-3.5" />
-              ask.security@gmail.com
-            </a>
           </div>
         </div>
-
-        <div className="mt-12 flex flex-col gap-3 border-t border-(--dk-line) pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="pd-mono text-[11px] tracking-[0.15em] text-(--dk-mist)">
-            © 2026 ASK Security. All rights reserved.
+        <div className="font-mono mt-12 flex flex-wrap items-baseline justify-between gap-4 border-t border-(--dk-line) pt-6 text-[12px] text-(--dk-mist)">
+          <p>© 2026 {SITE_NAME} · web3 security audits</p>
+          <p>
+            <Link href="/blog" className="nav-link">
+              blog
+            </Link>
           </p>
         </div>
       </div>

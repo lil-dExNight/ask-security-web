@@ -40,7 +40,7 @@ export function PostsTable({ posts }: { posts: PostMeta[] }) {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-xl font-semibold">
-          Posts <span className="pd-mono text-sm text-(--dk-mist)">({visible.length})</span>
+          Posts <span className="font-mono text-sm text-(--dk-mist)">({visible.length})</span>
         </h1>
         <div className="flex items-center gap-4">
           <label className="flex cursor-pointer items-center gap-2 text-sm text-(--dk-mist)">
@@ -99,16 +99,16 @@ export function PostsTable({ posts }: { posts: PostMeta[] }) {
                   <td className="max-w-56 truncate px-4 py-3 font-medium text-(--dk-ink)">
                     {post.title}
                   </td>
-                  <td className="pd-mono max-w-44 truncate px-4 py-3 text-xs text-(--dk-mist)">
+                  <td className="font-mono max-w-44 truncate px-4 py-3 text-xs text-(--dk-mist)">
                     {post.slug}
                   </td>
-                  <td className="pd-mono px-4 py-3 text-xs text-(--dk-mist)">{post.date}</td>
+                  <td className="font-mono px-4 py-3 text-xs text-(--dk-mist)">{post.date}</td>
                   <td className="px-4 py-3">
                     <div className="flex max-w-48 flex-wrap gap-1">
                       {post.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="pd-mono rounded border border-(--dk-line) bg-(--dk-abyss) px-1.5 py-0.5 text-xs text-(--dk-mist)"
+                          className="font-mono rounded border border-(--dk-line) bg-(--dk-abyss) px-1.5 py-0.5 text-xs text-(--dk-mist)"
                         >
                           {tag}
                         </span>

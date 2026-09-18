@@ -2,7 +2,8 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "ASK Security — Web3 security audits. Ship with confidence.";
+export const alt =
+  "ASK Security — Web3 security audits. Someone will read your code line by line. Make sure it's us.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const dynamic = "force-static";
@@ -22,10 +23,7 @@ export default async function OpengraphImage() {
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "72px 80px",
-        backgroundColor: "#0a0e14",
-        backgroundImage:
-          "linear-gradient(to right, rgba(65, 242, 164, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(65, 242, 164, 0.05) 1px, transparent 1px)",
-        backgroundSize: "52px 52px",
+        backgroundColor: "#060a08",
       }}
     >
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -36,17 +34,19 @@ export default async function OpengraphImage() {
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
-            fontSize: 88,
+            flexDirection: "column",
+            gap: 12,
+            fontSize: 72,
             fontWeight: 700,
             letterSpacing: "-0.03em",
-            color: "#dce9f7",
+            color: "#e8f5ee",
             lineHeight: 1.05,
           }}
         >
-          Ship with <span style={{ color: "#41f2a4", marginLeft: 24 }}>confidence</span>
+          <span>Someone will read your code line by line.</span>
+          <span style={{ color: "#41f2a4" }}>Make sure it&rsquo;s us.</span>
         </div>
-        <div style={{ fontSize: 30, color: "#8296ad", lineHeight: 1.3 }}>
+        <div style={{ fontSize: 30, color: "#7a9386", lineHeight: 1.3 }}>
           Independent security audits for web3 protocols, infrastructure, and wallets
         </div>
       </div>
@@ -56,10 +56,10 @@ export default async function OpengraphImage() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          borderTop: "1px solid #1c2b3f",
+          borderTop: "1px solid #16241c",
           paddingTop: 28,
           fontSize: 24,
-          color: "#8296ad",
+          color: "#7a9386",
         }}
       >
         <span>t.me/asksecurity</span>

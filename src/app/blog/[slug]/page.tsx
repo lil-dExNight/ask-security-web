@@ -65,14 +65,14 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
         <article className="mx-auto w-full max-w-3xl px-5 pb-24 pt-14 md:px-8 md:pt-20">
           <Link
             href="/blog"
-            className="pd-mono inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-(--dk-mist) transition-colors hover:text-(--dk-acid)"
+            className="font-mono inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-(--dk-mist) transition-colors hover:text-(--dk-acid)"
           >
             <ArrowLeft className="size-3.5" />
             All posts
           </Link>
 
           <header className="mt-10 border-b border-(--dk-line) pb-10">
-            <p className="pd-mono flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.35em] text-(--dk-acid)">
+            <p className="font-mono flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.35em] text-(--dk-acid)">
               <span className="inline-block h-px w-8 bg-(--dk-acid)/60" />
               {"// article"}
             </p>
@@ -82,7 +82,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
               <time
                 dateTime={post.date}
-                className="pd-mono text-[11px] uppercase tracking-[0.25em] text-(--dk-mist)"
+                className="font-mono text-[11px] uppercase tracking-[0.25em] text-(--dk-mist)"
               >
                 {formatDate(post.date)}
               </time>
@@ -91,7 +91,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                   {post.tags.map((tag) => (
                     <li
                       key={tag}
-                      className="pd-mono border border-(--dk-line) px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-(--dk-mist)"
+                      className="font-mono border border-(--dk-line) px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-(--dk-mist)"
                     >
                       {tag}
                     </li>
@@ -105,7 +105,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
 
           {related.length > 0 ? (
             <nav aria-label="More posts" className="mt-16 border-t border-(--dk-line) pt-10">
-              <p className="pd-mono text-[10px] uppercase tracking-[0.3em] text-(--dk-mist)">
+              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-(--dk-mist)">
                 Keep reading
               </p>
               <ul className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -118,7 +118,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                       <span className="text-sm font-semibold tracking-tight text-(--dk-ink) transition-colors group-hover:text-(--dk-acid-soft)">
                         {p.title}
                       </span>
-                      <span className="pd-mono mt-2 block text-[10px] uppercase tracking-[0.25em] text-(--dk-mist)">
+                      <span className="font-mono mt-2 block text-[10px] uppercase tracking-[0.25em] text-(--dk-mist)">
                         {formatDate(p.date)}
                       </span>
                     </Link>

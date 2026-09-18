@@ -24,7 +24,7 @@ npm run test:watch  # watch mode
 
 ## Project structure
 
-- `src/app/(marketing)/` — landing page. Sections: Hero, Services, StatsBand, Cases, Contact. Dark terminal-style design, emerald accent, scanline overlays.
+- `src/app/(marketing)/` — landing page. Sections: Hero, Services, StatsBand, Cases, Contact. Editorial dark design, matrix-green palette, disciplined acid accent.
 - `src/components/landing/` — landing section components.
 - `src/app/blog/` — public blog: `/blog`, `/blog/[slug]`, RSS at `/blog/rss.xml`. Dynamically rendered (`force-dynamic`).
 - `src/app/admin/` — admin panel for managing posts.

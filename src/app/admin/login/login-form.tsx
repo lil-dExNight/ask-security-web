@@ -12,19 +12,19 @@ export function LoginForm({ configured }: { configured: boolean }) {
   if (!configured) {
     return (
       <div className="w-full max-w-md rounded-lg border border-(--dk-line) bg-(--dk-panel) p-6">
-        <h1 className="pd-mono text-lg font-semibold text-(--dk-ink)">
+        <h1 className="font-mono text-lg font-semibold text-(--dk-ink)">
           ASK <span className="text-(--dk-acid)">Admin</span>
         </h1>
         <p className="mt-4 text-sm text-(--dk-mist)">
           The admin password is not configured. Set the{" "}
-          <code className="pd-mono text-(--dk-acid)">ADMIN_PASSWORD</code> environment
+          <code className="font-mono text-(--dk-acid)">ADMIN_PASSWORD</code> environment
           variable and restart the server:
         </p>
-        <pre className="pd-mono mt-4 overflow-x-auto rounded-md border border-(--dk-line) bg-(--dk-abyss) p-3 text-xs text-(--dk-ink)">
+        <pre className="font-mono mt-4 overflow-x-auto rounded-md border border-(--dk-line) bg-(--dk-abyss) p-3 text-xs text-(--dk-ink)">
           ADMIN_PASSWORD=your-strong-password
         </pre>
         <p className="mt-3 text-xs text-(--dk-mist)">
-          For local development, put it in <code className="pd-mono">.env.local</code>.
+          For local development, put it in <code className="font-mono">.env.local</code>.
         </p>
       </div>
     );
@@ -59,7 +59,7 @@ export function LoginForm({ configured }: { configured: boolean }) {
       onSubmit={handleSubmit}
       className="w-full max-w-sm rounded-lg border border-(--dk-line) bg-(--dk-panel) p-6"
     >
-      <h1 className="pd-mono text-lg font-semibold text-(--dk-ink)">
+      <h1 className="font-mono text-lg font-semibold text-(--dk-ink)">
         ASK <span className="text-(--dk-acid)">Admin</span>
       </h1>
       <label htmlFor="password" className="mt-6 block text-sm text-(--dk-mist)">

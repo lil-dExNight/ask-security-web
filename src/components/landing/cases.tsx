@@ -1,122 +1,110 @@
-import { ArrowUpRight, MessageSquarePlus, ShieldCheck, Trophy } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { SectionHeading } from "./section-heading";
+import { SITE_CONTACTS } from "@/lib/site";
 import { Reveal } from "./reveal";
 
+type Finding = {
+  label: string;
+  count: string;
+  note?: string;
+};
+
 type CaseStudy = {
-  icon: LucideIcon;
+  ref: string;
   tag: string;
-  code: string;
   title: string;
   outcome: string;
-  meta: string;
-  href?: string;
-  linkLabel?: string;
-  quiet?: boolean;
+  findings: Finding[];
+  href: string;
+  linkLabel: string;
 };
 
 const CASES: CaseStudy[] = [
   {
-    icon: Trophy,
-    tag: "Contest audits",
-    code: "CASE_01",
+    ref: "case · 01",
+    tag: "contest audits · sherlock",
     title: "Sherlock Audit Contests",
     outcome:
-      "Public audit contests on Sherlock — 4 Medium findings confirmed",
-    meta: "4 Medium findings",
+      "Public audit contests on Sherlock, competing against other auditors on live codebases.",
+    findings: [{ label: "medium", count: "4", note: "confirmed" }],
     href: "https://audits.sherlock.xyz/watson/AskSecurity",
-    linkLabel: "View profile",
+    linkLabel: "view sherlock profile",
   },
   {
-    icon: ShieldCheck,
-    tag: "Private audit · with Shieldify",
-    code: "CASE_02",
+    ref: "case · 02",
+    tag: "private audit · with shieldify",
     title: "Private Protocol Audit",
-    outcome:
-      "Private audit of a web3 protocol together with Shieldify",
-    meta: "2 High · 4 Medium · 8 Low · 6 Informational",
-  },
-  {
-    icon: MessageSquarePlus,
-    tag: "Next",
-    code: "CASE_03",
-    title: "Your project here",
-    outcome: "We are taking on new audits — tell us about your protocol",
-    meta: "Slots open",
-    href: "https://t.me/asksecurity",
-    linkLabel: "Request an audit",
-    quiet: true,
+    outcome: "Private audit of a web3 protocol, run together with Shieldify.",
+    findings: [
+      { label: "high", count: "2" },
+      { label: "medium", count: "4" },
+      { label: "low", count: "8" },
+      { label: "informational", count: "6" },
+    ],
+    href: SITE_CONTACTS.telegram,
+    linkLabel: "request details",
   },
 ];
 
 export function Cases() {
   return (
-    <section id="cases" className="relative scroll-mt-20 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <SectionHeading
-          index="02"
-          eyebrow="Cases"
-          title="Selected engagements"
-          description="Public contest results and private audit work"
-        />
-
-        <div className="mt-14 grid gap-4 md:grid-cols-3">
+    <section id="cases" className="scroll-mt-20 bg-(--dk-panel)">
+      <div className="mx-auto max-w-[1200px] px-5 py-20 md:px-10 md:py-28">
+        <Reveal className="indent-2">
+          <div className="flex items-baseline justify-between gap-6">
+            <h2 className="text-[clamp(28px,4vw,48px)] font-semibold tracking-[-0.03em]">
+              Selected engagements
+            </h2>
+            <span className="font-mono text-[12px] text-(--dk-mist)">
+              ( 2 of 2 )
+            </span>
+          </div>
+        </Reveal>
+        <div className="mt-14 grid gap-6 md:grid-cols-2">
           {CASES.map((item, i) => (
-            <Reveal
-              key={item.title}
-              as="article"
-              y={36}
-              duration={0.65}
-              margin="-60px"
-              delay={i * 0.1}
-              blur={false}
-              className={
-                item.quiet
-                  ? "group relative overflow-hidden rounded-xl border border-dashed border-(--dk-line) bg-(--dk-panel)/30 transition-colors duration-300 hover:border-(--dk-acid)/40"
-                  : "group relative overflow-hidden rounded-xl border border-(--dk-line) bg-(--dk-panel)/70 transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-(--dk-acid)/60 hover:shadow-[0_0_50px_-16px_var(--dk-acid)]"
-              }
-            >
-              {/* Decorative header strip */}
-              <div className="relative h-28 overflow-hidden border-b border-(--dk-line) bg-(--dk-abyss)">
-                <div aria-hidden className={`pd-grid absolute inset-0 ${item.quiet ? "opacity-30" : "opacity-70"}`} />
-                <span
-                  aria-hidden
-                  className="pd-mono absolute right-4 top-3 text-lg font-bold tracking-[0.15em] text-(--dk-acid)/15 transition-colors duration-300 group-hover:text-(--dk-acid)/30"
-                >
-                  {item.code}
-                </span>
-                <div className={`absolute bottom-4 left-5 grid size-10 place-items-center rounded-lg border border-(--dk-line) bg-(--dk-void) transition-shadow duration-300 ${item.quiet ? "text-(--dk-mist)" : "text-(--dk-acid) group-hover:shadow-[0_0_20px_-4px_var(--dk-acid)]"}`}>
-                  <item.icon className="size-5" />
+            <Reveal key={item.ref} delay={i * 80}>
+              <article className="case-panel flex h-full flex-col">
+                <div className="font-mono flex items-baseline justify-between border-b border-(--dk-line) px-6 py-4 text-[12px] text-(--dk-mist) md:px-8">
+                  <span>{item.ref}</span>
+                  <span>{item.tag}</span>
                 </div>
-              </div>
-
-              <div className="p-6">
-                <span className={`pd-mono inline-block rounded border px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.2em] ${item.quiet ? "border-(--dk-line) text-(--dk-mist)" : "border-(--dk-acid)/40 text-(--dk-acid)"}`}>
-                  {item.tag}
-                </span>
-                <h3 className="mt-4 text-lg font-semibold tracking-tight text-(--dk-ink)">
-                  {item.title}
-                </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-(--dk-mist)">
-                  {item.outcome}
-                </p>
-                <div className="mt-6 flex items-center justify-between border-t border-(--dk-line) pt-4">
-                  <span className="pd-mono text-[11px] uppercase tracking-[0.15em] text-(--dk-mist)">
-                    {item.meta}
-                  </span>
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="pd-mono inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-(--dk-acid) transition-colors hover:text-(--dk-acid-soft)"
-                    >
-                      {item.linkLabel}
-                      <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </a>
-                  ) : null}
+                <div className="flex grow flex-col px-6 py-8 md:px-8 md:py-10">
+                  <h3 className="text-[clamp(26px,3vw,38px)] font-semibold leading-[1.05] tracking-[-0.03em]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-4 max-w-[44ch] text-[15px] leading-relaxed text-(--dk-mist)">
+                    {item.outcome}
+                  </p>
+                  <ul className="font-mono mt-8 space-y-2 text-[13px]">
+                    {item.findings.map((f) => (
+                      <li
+                        key={f.label}
+                        className="flex items-baseline justify-between gap-4 border-b border-(--dk-line) pb-2 last:border-b-0"
+                      >
+                        <span className="text-(--dk-mist)">{f.label}</span>
+                        <span>
+                          {f.count}
+                          {f.note ? (
+                            <span className="text-(--dk-mist)">
+                              {" "}
+                              · {f.note}
+                            </span>
+                          ) : null}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="acid-link font-mono mt-auto inline-flex items-center gap-2 pt-8 text-[13px]"
+                  >
+                    {item.linkLabel}
+                    <span aria-hidden className="row-arrow">
+                      →
+                    </span>
+                  </a>
                 </div>
-              </div>
+              </article>
             </Reveal>
           ))}
         </div>
