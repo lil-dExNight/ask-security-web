@@ -1,7 +1,7 @@
 # Based on the official Next.js Docker example (output: "standalone").
 # Note: no `# syntax=` directive — Railway's builder rejects custom frontends.
 
-FROM node:22-alpine AS base
+FROM node:22-alpine@sha256:7342a94c926da5486caf3d477ac8f57a63041d92f7574ea318c27b67ed36aedd AS base
 
 # Install dependencies only when needed
 FROM base AS deps
