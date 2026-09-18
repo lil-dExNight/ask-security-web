@@ -6,6 +6,9 @@ import { Cases } from "@/components/landing/cases";
 import { Contact } from "@/components/landing/contact";
 import { SiteFooter } from "@/components/landing/site-footer";
 
+// CSP nonces require dynamic rendering.
+export const dynamic = "force-dynamic";
+
 export default function HomePage() {
   return (
     <>

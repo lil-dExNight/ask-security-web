@@ -7,8 +7,8 @@ import { Markdown } from "@/components/markdown";
 import { SiteHeader } from "@/components/landing/site-header";
 import { SiteFooter } from "@/components/landing/site-footer";
 
-// ISR: cached for up to an hour; admin writes call revalidatePath for instant updates.
-export const revalidate = 3600;
+// CSP nonces require dynamic rendering, so ISR is disabled here.
+export const dynamic = "force-dynamic";
 
 const dateFmt = new Intl.DateTimeFormat("en-US", {
   year: "numeric",

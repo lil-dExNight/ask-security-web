@@ -54,6 +54,40 @@ async function hasValidSession(token: string | undefined, secret: string): Promi
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Per-request nonce for the strict CSP. Next.js reads the nonce from the
+  // request header and applies it to its own scripts during rendering.
+  const nonce = bytesToBase64Url(crypto.getRandomValues(new Uint8Array(16)));
+  const isDev = process.env.NODE_ENV === "development";
+  const csp = [
+    "default-src 'self'",
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ""}`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data:",
+    "font-src 'self'",
+    "frame-ancestors 'none'",
+    "base-uri 'none'",
+    "form-action 'none'",
+    "object-src 'none'",
+    "upgrade-insecure-requests",
+  ].join("; ");
+
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("Content-Security-Policy", csp);
+
+  const nextWithCsp = () => {
+    const response = NextResponse.next({ request: { headers: requestHeaders } });
+    response.headers.set("Content-Security-Policy", csp);
+    return response;
+  };
+
+  const isAdminArea =
+    pathname === "/admin" ||
+    pathname.startsWith("/admin/") ||
+    pathname === "/api/admin" ||
+    pathname.startsWith("/api/admin/");
+  if (!isAdminArea) return nextWithCsp();
+
   // CSRF hardening: browsers send sec-fetch-site on fetch; reject cross-site
   // mutations outright. Runs before the session check so it also covers login.
   if (
@@ -68,13 +102,13 @@ export async function middleware(request: NextRequest) {
     pathname === "/api/admin/login" ||
     pathname === "/api/admin/logout"
   ) {
-    return NextResponse.next();
+    return nextWithCsp();
   }
   // Key source must match getSecret() in src/lib/auth.ts.
   const secret = process.env.SESSION_SECRET || process.env.ADMIN_PASSWORD;
   const token = request.cookies.get(COOKIE_NAME)?.value;
   const valid = secret ? await hasValidSession(token, secret) : false;
-  if (valid) return NextResponse.next();
+  if (valid) return nextWithCsp();
   if (pathname.startsWith("/api/")) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -85,5 +119,14 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/admin/:path*"],
+  matcher: [
+    {
+      // All paths except static assets and public files (paths with a dot).
+      source: "/((?!_next/static|_next/image|favicon.ico|.*\\..*).*)",
+      missing: [
+        { type: "header", key: "next-router-prefetch" },
+        { type: "header", key: "purpose", value: "prefetch" },
+      ],
+    },
+  ],
 };
