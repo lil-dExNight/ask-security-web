@@ -33,7 +33,7 @@ const CASES: CaseStudy[] = [
     code: "CASE_02",
     title: "Private Protocol Audit",
     outcome:
-      "Full-scope audit of a web3 protocol with Shieldify; all findings acknowledged by the client",
+      "Private audit of a web3 protocol together with Shieldify",
     meta: "2 High · 4 Medium · 8 Low · 6 Informational",
   },
   {
@@ -114,11 +114,7 @@ export function Cases() {
                       {item.linkLabel}
                       <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </a>
-                  ) : (
-                    <span className="grid size-7 place-items-center rounded border border-(--dk-line) text-(--dk-mist) transition-all duration-300 group-hover:border-(--dk-acid)/60 group-hover:text-(--dk-acid)">
-                      <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </span>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </Reveal>

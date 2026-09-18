@@ -44,12 +44,6 @@ export function Contact() {
           </Reveal>
 
           <Reveal delay={0.26}>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-(--dk-mist)">
-              Tell us what you are building — we reply within 24 hours with a scoped plan and a timeline
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.34}>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <a
                 href="https://t.me/asksecurity"
@@ -78,12 +72,6 @@ export function Contact() {
                 ask.security@gmail.com
               </a>
             </div>
-          </Reveal>
-
-          <Reveal delay={0.42}>
-            <p className="pd-mono mt-10 text-[11px] uppercase tracking-[0.25em] text-(--dk-mist)">
-              {"PGP available on request · NDA-friendly"}
-            </p>
           </Reveal>
         </div>
       </Reveal>

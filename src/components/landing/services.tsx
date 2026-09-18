@@ -16,7 +16,7 @@ const SERVICES: Service[] = [
     icon: CodeXml,
     title: "Code Audit",
     description:
-      "Manual line-by-line review of smart contracts and off-chain code — logic errors, reentrancy, economic attacks — with fix verification",
+      "Review of smart contracts and off-chain infrastructure",
     tags: ["solidity", "vyper", "rust", "zk-circuits"],
     span: "lg:col-span-7",
   },
@@ -32,7 +32,7 @@ const SERVICES: Service[] = [
     icon: Crosshair,
     title: "Security Research",
     description:
-      "Research on new mechanisms and primitives, validated with proof-of-concept exploits",
+      "Research on new mechanisms and primitives",
     tags: ["mechanism design", "exploit poc"],
     span: "lg:col-span-5",
   },
@@ -40,7 +40,7 @@ const SERVICES: Service[] = [
     icon: Radar,
     title: "Continuous Security Monitoring",
     description:
-      "Real-time alerts on deployed contracts and support during incidents",
+      "Real-time alerts on deployed contracts and support",
     tags: ["on-chain alerts", "incident response"],
     span: "lg:col-span-7",
   },
