@@ -1,46 +1,61 @@
 # ASK Security — Website
 
-Landing page for ASK Security, a web3 security audit company: code audits, infrastructure audits, security research, and post-deployment monitoring.
+Website for ASK Security, a web3 security audit company. Landing page, markdown blog with an admin panel, deployed on Railway.
 
 ## Stack
 
-- Next.js 16 (App Router) + React 19
+- Next.js 16 (App Router), React 19, TypeScript strict
 - Tailwind CSS v4 (CSS-first config in `src/app/globals.css`)
-- Motion (`motion/react`) for scroll and entrance animations
-- Lenis for smooth scrolling
-- lucide-react icons, shadcn/ui button
+- Motion (`motion/react`) + Lenis for animations and smooth scrolling
+- gray-matter + react-markdown for the blog
+- Vitest for unit tests
 
-## Commands
-
-```bash
-npm run dev    # start dev server
-npm run build  # production build
-npm run lint   # eslint
-```
-
-## Hosting
-
-The site runs as a native Node.js server on Railway (see `Dockerfile`) and auto-deploys on every push to `master`. See [DEPLOY.md](DEPLOY.md).
-
-## Structure
-
-- `src/app/` — root layout, landing page, global styles (dark theme tokens and effects live at the end of `globals.css`)
-- `src/components/landing/` — page sections (header, hero, services, stats band, cases, testimonials, contact, footer)
-- `src/components/ui/` — shadcn/ui primitives
-- `public/logo.png` — brand mark (inverted via CSS filter for the dark theme)
-
-## Blog & Admin
-
-Posts are Markdown files with frontmatter (`title`, `date`, `excerpt`, `tags`, `draft`) stored in `content/blog/`.
-
-- Public blog: `/blog` (published posts only, drafts are hidden).
-- Admin panel: `/admin` — list, create, edit and delete posts with a live Markdown preview.
-
-Set the admin password before using the panel:
+## Quick start
 
 ```bash
-# .env.local
-ADMIN_PASSWORD=your-strong-password
+npm install
+npm run dev         # dev server on http://localhost:3000
+npm run build       # production build
+npm start           # serve the production build
+npm run lint        # eslint
+npm test            # unit tests (vitest run)
+npm run test:watch  # watch mode
 ```
 
-Without `ADMIN_PASSWORD`, `/admin` shows a setup notice and login stays disabled. Sessions use a signed, httpOnly `ask_admin` cookie with a 7-day expiry. Admin routes are disallowed in `robots.txt` and require no extra dependencies — auth is built on `node:crypto` (HMAC-SHA256).
+## Project structure
+
+- `src/app/(marketing)/` — landing page. Sections: Hero, Services, StatsBand, Cases, Contact. Dark terminal-style design, emerald accent, scanline overlays.
+- `src/components/landing/` — landing section components.
+- `src/app/blog/` — public blog: `/blog`, `/blog/[slug]`, RSS at `/blog/rss.xml`. Dynamically rendered (`force-dynamic`).
+- `src/app/admin/` — admin panel for managing posts.
+- `src/app/api/admin/` — admin REST API (login, logout, post CRUD).
+- `content/blog/` — blog posts as markdown files (currently empty, `.gitkeep` only).
+- `src/middleware.ts` — per-request CSP nonce and admin route guarding.
+- `src/lib/` — blog and auth helpers.
+
+## Blog
+
+Posts are markdown files in `content/blog/` with frontmatter: `title`, `date`, `excerpt`, `tags`, `draft`. They are read from disk at request time. Drafts are hidden from the public blog. RSS feed at `/blog/rss.xml`.
+
+## Admin panel
+
+`/admin` provides post CRUD with a live markdown preview, backed by `/api/admin/posts`. Auth is a signed httpOnly cookie (HMAC-SHA256, built on `node:crypto`), with rate limiting on login.
+
+Required environment variables (`.env.local`):
+
+```bash
+ADMIN_PASSWORD=your-strong-password   # required; without it login stays disabled
+SESSION_SECRET=random-string          # optional; signs sessions instead of the password
+```
+
+## Security headers
+
+Most headers (HSTS, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy) are set in `next.config.ts`. The Content-Security-Policy is set per request in `src/middleware.ts` with a nonce (`script-src 'self' 'nonce-...' 'strict-dynamic'`). Because of the nonce, pages render dynamically.
+
+## CI
+
+`.github/workflows/ci.yml` runs `npm ci`, `npm audit`, lint, tests and build on every push and pull request to `master`.
+
+## Deployment
+
+Railway, Docker multistage build (node:22-alpine pinned by sha256), `output: "standalone"`. Blog posts live on a volume mounted at `/app/content`. Domain `asksecurity.xyz` via Cloudflare. See [DEPLOY.md](DEPLOY.md).
