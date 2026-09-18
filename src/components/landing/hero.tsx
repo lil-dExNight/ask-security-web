@@ -15,12 +15,27 @@ const TERM_LINES: TermPart[][] = [
   ],
   [
     { text: "[SCAN] ", cls: "text-(--dk-mist)" },
-    { text: "contracts .................. ", cls: "text-(--dk-ink)/75" },
-    { text: "2 findings", cls: "text-amber-300" },
+    { text: "static analysis ............ ", cls: "text-(--dk-ink)/75" },
+    { text: "done", cls: "text-(--dk-acid)" },
+  ],
+  [
+    { text: "[FUZZ] ", cls: "text-(--dk-mist)" },
+    { text: "invariants ................. ", cls: "text-(--dk-ink)/75" },
+    { text: "passed", cls: "text-(--dk-acid)" },
+  ],
+  [
+    { text: "[FAIL] ", cls: "text-red-400" },
+    { text: "reentrancy in withdraw() ... ", cls: "text-(--dk-ink)/75" },
+    { text: "CRITICAL", cls: "text-red-400" },
+  ],
+  [
+    { text: "[FAIL] ", cls: "text-amber-300" },
+    { text: "stale oracle price ........ ", cls: "text-(--dk-ink)/75" },
+    { text: "HIGH", cls: "text-amber-300" },
   ],
   [
     { text: "[FIX]  ", cls: "text-(--dk-mist)" },
-    { text: "patches .................... ", cls: "text-(--dk-ink)/75" },
+    { text: "patches .................. ", cls: "text-(--dk-ink)/75" },
     { text: "verified", cls: "text-(--dk-acid)" },
   ],
 ];
@@ -149,7 +164,7 @@ export function Hero() {
                 ask@security: audit
               </span>
             </div>
-            <div className="pd-mono min-h-36 space-y-2.5 px-5 py-5 text-[11px] leading-relaxed sm:text-xs md:text-[13px]">
+            <div className="pd-mono min-h-48 space-y-2.5 px-5 py-5 text-[11px] leading-relaxed sm:text-xs md:text-[13px]">
               {TERM_LINES.slice(0, lines).map((parts, i) => (
                 <m.p
                   key={i}
