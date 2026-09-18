@@ -11,42 +11,16 @@ const TERM_LINES: TermPart[][] = [
   [
     { text: "ask@security", cls: "text-(--dk-acid)" },
     { text: ":~$ ", cls: "text-(--dk-mist)" },
-    { text: "asksec audit --target ./contracts", cls: "text-(--dk-ink)" },
-  ],
-  [
-    { text: "[INIT] ", cls: "text-(--dk-mist)" },
-    { text: "loading 214 detectors .......... ", cls: "text-(--dk-ink)/75" },
-    { text: "ok", cls: "text-(--dk-acid)" },
+    { text: "asksec audit ./contracts", cls: "text-(--dk-ink)" },
   ],
   [
     { text: "[SCAN] ", cls: "text-(--dk-mist)" },
-    { text: "static analysis, 142 checks .... ", cls: "text-(--dk-ink)/75" },
-    { text: "passed", cls: "text-(--dk-acid)" },
-  ],
-  [
-    { text: "[FUZZ] ", cls: "text-(--dk-mist)" },
-    { text: "1,200,000 executions .......... ", cls: "text-(--dk-ink)/75" },
-    { text: "0 crashes", cls: "text-(--dk-acid)" },
-  ],
-  [
-    { text: "[FAIL] ", cls: "text-red-400" },
-    { text: "reentrancy in withdraw() ...... ", cls: "text-(--dk-ink)/75" },
-    { text: "CRITICAL", cls: "text-red-400" },
-  ],
-  [
-    { text: "[FAIL] ", cls: "text-amber-300" },
-    { text: "stale oracle price ............ ", cls: "text-(--dk-ink)/75" },
-    { text: "HIGH", cls: "text-amber-300" },
+    { text: "contracts .................. ", cls: "text-(--dk-ink)/75" },
+    { text: "2 findings", cls: "text-amber-300" },
   ],
   [
     { text: "[FIX]  ", cls: "text-(--dk-mist)" },
-    { text: "remediation ", cls: "text-(--dk-ink)/75" },
-    { text: "████████████", cls: "pd-glow text-(--dk-acid)" },
-    { text: " 100%", cls: "text-(--dk-acid)" },
-  ],
-  [
-    { text: "[DONE] ", cls: "text-(--dk-mist)" },
-    { text: "2 findings reported — fixes ..... ", cls: "text-(--dk-ink)/75" },
+    { text: "patches .................... ", cls: "text-(--dk-ink)/75" },
     { text: "verified", cls: "text-(--dk-acid)" },
   ],
 ];
@@ -175,7 +149,7 @@ export function Hero() {
                 ask@security: audit
               </span>
             </div>
-            <div className="pd-mono min-h-72 space-y-2.5 px-5 py-5 text-[11px] leading-relaxed sm:text-xs md:text-[13px]">
+            <div className="pd-mono min-h-36 space-y-2.5 px-5 py-5 text-[11px] leading-relaxed sm:text-xs md:text-[13px]">
               {TERM_LINES.slice(0, lines).map((parts, i) => (
                 <m.p
                   key={i}
@@ -198,7 +172,7 @@ export function Hero() {
                     <span className="text-(--dk-mist)">:~$ </span>
                   </>
                 ) : null}
-                <span className="pd-caret" />
+                <span className="pd-caret" style={{ animationDelay: "0.53s" }} />
               </p>
             </div>
             <div className="pd-mono flex items-center justify-between border-t border-(--dk-line) px-5 py-3 text-[10px] uppercase tracking-[0.2em]">
