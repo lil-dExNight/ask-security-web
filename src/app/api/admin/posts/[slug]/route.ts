@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { deletePost, getPost, savePost } from "@/lib/blog";
 import type { Post } from "@/lib/blog";
+import { getSession } from "@/lib/auth";
 import { SLUG_RE, buildUpdatedPost, slugExists } from "../post-input";
 
 export const runtime = "nodejs";
@@ -19,6 +21,9 @@ async function loadPost(slug: string): Promise<Post | null> {
 }
 
 export async function GET(_request: NextRequest, { params }: RouteContext) {
+  if (!(await getSession())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const { slug } = await params;
   const post = await loadPost(slug);
   if (!post) {
@@ -28,6 +33,9 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
 }
 
 export async function PUT(request: NextRequest, { params }: RouteContext) {
+  if (!(await getSession())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const { slug } = await params;
   const existing = await loadPost(slug);
   if (!existing) {
@@ -58,20 +66,21 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
   } catch {
     return NextResponse.json({ error: "Failed to save post" }, { status: 500 });
   }
-  if (renamed) {
-    try {
-      await deletePost(existing.slug);
-    } catch {
-      return NextResponse.json(
-        { error: "Post saved, but the old file could not be deleted" },
-        { status: 500 },
-      );
-    }
+  let warning: string | undefined;
+  if (renamed && !(await deletePost(existing.slug))) {
+    warning = "Saved, but the old file could not be deleted";
   }
-  return NextResponse.json({ post: updated });
+  revalidatePath("/blog");
+  revalidatePath(`/blog/${updated.slug}`);
+  if (renamed) revalidatePath(`/blog/${existing.slug}`);
+  revalidatePath("/blog/rss.xml");
+  return NextResponse.json(warning ? { post: updated, warning } : { post: updated });
 }
 
 export async function DELETE(_request: NextRequest, { params }: RouteContext) {
+  if (!(await getSession())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const { slug } = await params;
   const existing = await loadPost(slug);
   if (!existing) {
@@ -79,6 +88,9 @@ export async function DELETE(_request: NextRequest, { params }: RouteContext) {
   }
   try {
     await deletePost(slug);
+    revalidatePath("/blog");
+    revalidatePath(`/blog/${slug}`);
+    revalidatePath("/blog/rss.xml");
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Failed to delete post" }, { status: 500 });

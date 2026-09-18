@@ -18,7 +18,8 @@ function parseTitle(value: unknown): string | null {
 }
 
 function parseContent(value: unknown): string | null {
-  return typeof value === "string" ? value : null;
+  if (typeof value !== "string" || value.length > 1_000_000) return null;
+  return value;
 }
 
 function parseExcerpt(value: unknown): string | null {
@@ -43,6 +44,7 @@ function parseTags(value: unknown): string[] | null {
   for (const item of value) {
     if (typeof item !== "string") return null;
     const tag = item.trim();
+    if (tag.length > 50) return null;
     if (tag) tags.push(tag);
   }
   return tags.slice(0, 20);
@@ -80,7 +82,7 @@ export function buildNewPost(body: unknown): PostInputResult {
   if (!title) return fail("title is required (1-200 characters)");
 
   const content = parseContent(input.content);
-  if (content === null) return fail("content must be a string");
+  if (content === null) return fail("content must be a string (max 1000000 characters)");
 
   const slug = parseSlug(input.slug, title);
   if (!slug) return fail("Invalid slug (lowercase letters, digits and dashes)");
@@ -92,7 +94,7 @@ export function buildNewPost(body: unknown): PostInputResult {
   if (excerpt === null) return fail("Invalid excerpt (max 500 characters)");
 
   const tags = parseTags(input.tags);
-  if (!tags) return fail("tags must be an array of strings");
+  if (!tags) return fail("tags must be an array of strings (max 50 characters each)");
 
   const draft = parseDraft(input.draft);
   if (draft === null) return fail("draft must be a boolean");
@@ -117,7 +119,7 @@ export function buildUpdatedPost(existing: Post, body: unknown): PostInputResult
   let content = existing.content;
   if (input.content !== undefined) {
     const parsed = parseContent(input.content);
-    if (parsed === null) return fail("content must be a string");
+    if (parsed === null) return fail("content must be a string (max 1000000 characters)");
     content = parsed;
   }
 
@@ -146,12 +148,12 @@ export function buildUpdatedPost(existing: Post, body: unknown): PostInputResult
   let tags = existing.tags;
   if (input.tags !== undefined) {
     const parsed = parseTags(input.tags);
-    if (!parsed) return fail("tags must be an array of strings");
+    if (!parsed) return fail("tags must be an array of strings (max 50 characters each)");
     tags = parsed;
   }
 
   let draft = existing.draft;
-  if (input.draft !== undefined) {
+  if (input.draft !== undefined && input.draft !== null) {
     const parsed = parseDraft(input.draft);
     if (parsed === null) return fail("draft must be a boolean");
     draft = parsed;

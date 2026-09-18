@@ -44,19 +44,38 @@ function postPath(slug: string): string | null {
   return file;
 }
 
+function parseDate(value: unknown): string {
+  if (
+    typeof value === "string" &&
+    /^\d{4}-\d{2}-\d{2}$/.test(value) &&
+    !Number.isNaN(Date.parse(value))
+  ) {
+    return value;
+  }
+  // js-yaml parses unquoted YAML dates into Date objects.
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return value.toISOString().slice(0, 10);
+  }
+  return new Date().toISOString().slice(0, 10);
+}
+
 function parseMeta(slug: string, data: Record<string, unknown>): PostMeta {
   return {
     slug,
     title: typeof data.title === "string" ? data.title : slug,
-    date: typeof data.date === "string" ? data.date : new Date().toISOString(),
+    date: parseDate(data.date),
     excerpt: typeof data.excerpt === "string" ? data.excerpt : "",
     tags: Array.isArray(data.tags) ? data.tags.filter((t): t is string => typeof t === "string") : [],
     draft: data.draft === true,
   };
 }
 
+const MAX_FILE_SIZE = 1_048_576;
+
 function readPostFile(file: string, slug: string): Post | null {
   try {
+    const stat = fs.lstatSync(file);
+    if (!stat.isFile() || stat.size > MAX_FILE_SIZE) return null;
     const raw = fs.readFileSync(file, "utf8");
     const { data, content } = matter(raw);
     return { ...parseMeta(slug, data), content: content.trim() };
@@ -65,7 +84,22 @@ function readPostFile(file: string, slug: string): Post | null {
   }
 }
 
-export function listPosts(opts?: { includeDrafts?: boolean }): PostMeta[] {
+// Parsed-list cache keyed by the directory mtime: every write (create,
+// rename, unlink) bumps it, so the cache stays valid across module instances.
+let listCache: { stamp: number; posts: PostMeta[] } | null = null;
+
+function dirStamp(): number {
+  try {
+    return fs.statSync(BLOG_DIR).mtimeMs;
+  } catch {
+    return 0;
+  }
+}
+
+function listAllPosts(): PostMeta[] {
+  const stamp = dirStamp();
+  if (listCache && listCache.stamp === stamp && stamp !== 0) return listCache.posts;
+
   let files: string[];
   try {
     files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".md"));
@@ -79,7 +113,6 @@ export function listPosts(opts?: { includeDrafts?: boolean }): PostMeta[] {
     if (!isValidSlug(slug)) continue;
     const post = readPostFile(path.join(BLOG_DIR, file), slug);
     if (!post) continue;
-    if (post.draft && !opts?.includeDrafts) continue;
     const meta: PostMeta = {
       slug: post.slug,
       title: post.title,
@@ -91,7 +124,14 @@ export function listPosts(opts?: { includeDrafts?: boolean }): PostMeta[] {
     posts.push(meta);
   }
 
-  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  listCache = { stamp, posts };
+  return posts;
+}
+
+export function listPosts(opts?: { includeDrafts?: boolean }): PostMeta[] {
+  const posts = listAllPosts();
+  return opts?.includeDrafts ? posts : posts.filter((post) => !post.draft);
 }
 
 export function getPost(slug: string, opts?: { includeDrafts?: boolean }): Post | null {
@@ -103,12 +143,17 @@ export function getPost(slug: string, opts?: { includeDrafts?: boolean }): Post 
   return post;
 }
 
-export function savePost(post: Post): void {
+export class PostExistsError extends Error {
+  constructor(slug: string) {
+    super(`Post already exists: ${slug}`);
+    this.name = "PostExistsError";
+  }
+}
+
+function serializePost(post: Post): { file: string; output: string } {
   const slug = isValidSlug(post.slug) ? post.slug : slugify(post.title);
   const file = postPath(slug);
   if (!file) throw new Error(`Invalid post slug: ${post.slug}`);
-
-  fs.mkdirSync(BLOG_DIR, { recursive: true });
 
   const { content, ...meta } = post;
   const frontmatter: Record<string, unknown> = {
@@ -119,7 +164,26 @@ export function savePost(post: Post): void {
   };
   if (meta.draft) frontmatter.draft = true;
 
-  const output = matter.stringify(`\n${content.trim()}\n`, frontmatter);
+  return { file, output: matter.stringify(`\n${content.trim()}\n`, frontmatter) };
+}
+
+export function createPost(post: Post): void {
+  const { file, output } = serializePost(post);
+  fs.mkdirSync(BLOG_DIR, { recursive: true });
+  try {
+    // O_EXCL: fail instead of overwriting an existing post.
+    fs.writeFileSync(file, output, { encoding: "utf8", flag: "wx" });
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "EEXIST") {
+      throw new PostExistsError(post.slug);
+    }
+    throw err;
+  }
+}
+
+export function savePost(post: Post): void {
+  const { file, output } = serializePost(post);
+  fs.mkdirSync(BLOG_DIR, { recursive: true });
 
   // Atomic-ish write: temp file in the same directory, then rename.
   const tmp = `${file}.${process.pid}.tmp`;

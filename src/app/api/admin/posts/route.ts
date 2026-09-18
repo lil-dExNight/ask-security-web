@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { listPosts, savePost } from "@/lib/blog";
-import { buildNewPost, slugExists } from "./post-input";
+import { revalidatePath } from "next/cache";
+import { PostExistsError, createPost, listPosts } from "@/lib/blog";
+import { getSession } from "@/lib/auth";
+import { buildNewPost } from "./post-input";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  if (!(await getSession())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     const posts = await listPosts({ includeDrafts: true });
     return NextResponse.json({ posts });
@@ -15,6 +20,9 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  if (!(await getSession())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   let body: unknown;
   try {
     body = await request.json();
@@ -26,15 +34,18 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: result.error }, { status: 400 });
   }
   try {
-    if (await slugExists(result.post.slug)) {
+    await createPost(result.post);
+  } catch (err) {
+    if (err instanceof PostExistsError) {
       return NextResponse.json(
         { error: "A post with this slug already exists" },
         { status: 409 },
       );
     }
-    await savePost(result.post);
-    return NextResponse.json({ post: result.post }, { status: 201 });
-  } catch {
     return NextResponse.json({ error: "Failed to save post" }, { status: 500 });
   }
+  revalidatePath("/blog");
+  revalidatePath(`/blog/${result.post.slug}`);
+  revalidatePath("/blog/rss.xml");
+  return NextResponse.json({ post: result.post }, { status: 201 });
 }
