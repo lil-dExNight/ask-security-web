@@ -16,15 +16,15 @@ const SERVICES: Service[] = [
     icon: CodeXml,
     title: "Code Audit",
     description:
-      "Line-by-line review of smart contracts and off-chain code. We hunt for logic flaws, reentrancy, and economic exploits, then verify every fix.",
-    tags: ["solidity", "rust", "zk-circuits"],
+      "Manual line-by-line review of smart contracts and off-chain code — logic errors, reentrancy, economic attacks — with fix verification",
+    tags: ["solidity", "vyper", "rust", "zk-circuits"],
     span: "lg:col-span-7",
   },
   {
     icon: ServerCog,
     title: "Infrastructure Audit",
     description:
-      "Nodes, validators, bridges, and cloud setups reviewed end to end. We test configurations, key management, and network exposure.",
+      "Review of nodes, validators, bridges, and cloud infrastructure: configuration, key management, network exposure",
     tags: ["validators", "bridges", "cloud"],
     span: "lg:col-span-5",
   },
@@ -32,7 +32,7 @@ const SERVICES: Service[] = [
     icon: Crosshair,
     title: "Security Research",
     description:
-      "Adversarial research on novel mechanisms and primitives. We break assumptions with proof-of-concept exploits before attackers do.",
+      "Research on new mechanisms and primitives, validated with proof-of-concept exploits",
     tags: ["mechanism design", "exploit poc"],
     span: "lg:col-span-5",
   },
@@ -40,7 +40,7 @@ const SERVICES: Service[] = [
     icon: Radar,
     title: "Continuous Security Monitoring",
     description:
-      "Post-deployment watch over your contracts with real-time alerts. We flag anomalies as they happen and support your incident response.",
+      "Real-time alerts on deployed contracts and support during incidents",
     tags: ["on-chain alerts", "incident response"],
     span: "lg:col-span-7",
   },
@@ -53,8 +53,7 @@ export function Services() {
         <SectionHeading
           index="01"
           eyebrow="Services"
-          title="Full-spectrum offensive security"
-          description="From first commit to post-deployment, one team covers the whole attack surface of your protocol."
+          title="What we do"
         />
 
         <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-12">

@@ -29,7 +29,7 @@ export function SiteFooter() {
               </span>
             </div>
             <p className="pd-mono mt-5 text-[11px] font-medium uppercase tracking-[0.4em] text-(--dk-acid)">
-              Audit / Protect / Enable
+              Web3 security audits
             </p>
           </div>
 
@@ -83,10 +83,6 @@ export function SiteFooter() {
         <div className="mt-12 flex flex-col gap-3 border-t border-(--dk-line) pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="pd-mono text-[11px] tracking-[0.15em] text-(--dk-mist)">
             © 2026 ASK Security. All rights reserved.
-          </p>
-          <p className="pd-mono flex items-center gap-2 text-[11px] uppercase tracking-[0.15em] text-(--dk-mist)">
-            <span className="pd-dot" />
-            status: operational
           </p>
         </div>
       </div>

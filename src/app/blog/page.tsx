@@ -83,7 +83,7 @@ export default function BlogIndexPage() {
         <div className="mx-auto max-w-6xl px-5 pb-24 pt-14 md:px-8 md:pt-20">
           <p className="pd-mono flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.35em] text-(--dk-acid)">
             <span className="inline-block h-px w-8 bg-(--dk-acid)/60" />
-            {"// research — notes from the field"}
+            {"// Research notes"}
           </p>
           <div className="mt-5 border-b border-(--dk-line) pb-8">
             <h1 className="text-4xl font-semibold tracking-tight text-(--dk-ink) sm:text-5xl">
@@ -91,13 +91,13 @@ export default function BlogIndexPage() {
             </h1>
             <p className="mt-4 max-w-md text-base leading-relaxed text-(--dk-mist)">
               Audit post-mortems, vulnerability research, and security engineering
-              write-ups from the ASK Security team.
+              write-ups from the ASK Security team
             </p>
           </div>
 
           {posts.length === 0 ? (
             <p className="pd-mono mt-16 border border-dashed border-(--dk-line) bg-(--dk-panel)/30 px-6 py-14 text-center text-xs uppercase tracking-[0.25em] text-(--dk-mist)">
-              No posts published yet — check back soon.
+              No posts published yet — check back soon
             </p>
           ) : (
             <ul className="mt-12 grid gap-6">

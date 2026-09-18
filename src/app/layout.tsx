@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     "smart contract audit",
     "blockchain security",
     "solidity audit",
+    "vyper audit",
     "rust audit",
     "bridge audit",
     "validator infrastructure review",

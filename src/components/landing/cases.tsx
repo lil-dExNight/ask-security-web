@@ -22,7 +22,7 @@ const CASES: CaseStudy[] = [
     code: "CASE_01",
     title: "Sherlock Audit Contests",
     outcome:
-      "Competing in public audit contests on Sherlock. 4 Medium severity findings confirmed.",
+      "Public audit contests on Sherlock — 4 Medium findings confirmed",
     meta: "4 Medium findings",
     href: "https://audits.sherlock.xyz/watson/AskSecurity",
     linkLabel: "View profile",
@@ -33,7 +33,7 @@ const CASES: CaseStudy[] = [
     code: "CASE_02",
     title: "Private Protocol Audit",
     outcome:
-      "Full-scope audit of a web3 protocol, delivered with Shieldify. All findings acknowledged by the client.",
+      "Full-scope audit of a web3 protocol with Shieldify; all findings acknowledged by the client",
     meta: "2 High · 4 Medium · 8 Low · 6 Informational",
   },
   {
@@ -41,7 +41,7 @@ const CASES: CaseStudy[] = [
     tag: "Next",
     code: "CASE_03",
     title: "Your project here",
-    outcome: "We're taking on new audits. Tell us about your protocol.",
+    outcome: "We are taking on new audits — tell us about your protocol",
     meta: "Slots open",
     href: "https://t.me/asksecurity",
     linkLabel: "Request an audit",
@@ -57,7 +57,7 @@ export function Cases() {
           index="02"
           eyebrow="Cases"
           title="Selected engagements"
-          description="Public contest results and private audit work. Contest findings are verifiable on our Sherlock profile."
+          description="Public contest results and private audit work"
         />
 
         <div className="mt-14 grid gap-4 md:grid-cols-3">

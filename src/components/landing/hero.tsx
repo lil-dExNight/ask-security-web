@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { m } from "motion/react";
-import { ArrowUpRight, ChevronDown, ChevronRight, Mail } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Mail } from "lucide-react";
 
 type TermPart = { text: string; cls: string };
 
@@ -50,8 +50,6 @@ const TERM_LINES: TermPart[][] = [
     { text: "verified", cls: "text-(--dk-acid)" },
   ],
 ];
-
-const TRUST_ITEMS = ["response < 24h", "fix verification included", "continuous monitoring"];
 
 export function Hero() {
   const [lines, setLines] = useState(0);
@@ -115,7 +113,7 @@ export function Hero() {
             className="pd-mono mt-8 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.35em] text-(--dk-acid)"
           >
             <span className="pd-dot" />
-            Web3 security audit unit
+            Smart contract & infrastructure audits
           </m.p>
 
           <h1 className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-(--dk-ink) sm:text-6xl lg:text-7xl">
@@ -129,9 +127,7 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-xl text-base leading-relaxed text-(--dk-mist) md:text-lg"
           >
-            Independent security audits for web3 protocols, infrastructure, and
-            wallets. We find the vulnerabilities before someone with worse
-            intentions does.
+            Independent security audits for web3 protocols, infrastructure, and wallets
           </m.p>
 
           <m.div
@@ -157,20 +153,6 @@ export function Hero() {
               ask.security@gmail.com
             </a>
           </m.div>
-
-          <m.ul
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
-            className="pd-mono mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.2em] text-(--dk-mist)"
-          >
-            {TRUST_ITEMS.map((item) => (
-              <li key={item} className="flex items-center gap-1.5">
-                <ChevronRight className="size-3 text-(--dk-acid)" />
-                {item}
-              </li>
-            ))}
-          </m.ul>
         </div>
 
         {/* Right: terminal window */}
@@ -220,10 +202,10 @@ export function Hero() {
               </p>
             </div>
             <div className="pd-mono flex items-center justify-between border-t border-(--dk-line) px-5 py-3 text-[10px] uppercase tracking-[0.2em]">
-              <span className="text-(--dk-mist)">report ASK-0142</span>
+              <span className="text-(--dk-mist)">audit complete</span>
               <span className="flex items-center gap-2 text-(--dk-acid)">
                 <span aria-hidden className="size-1.5 rounded-full bg-(--dk-acid)" />
-                status: accepted
+                fixes verified
               </span>
             </div>
           </div>

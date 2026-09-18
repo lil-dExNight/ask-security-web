@@ -33,7 +33,7 @@ export function Contact() {
           <Reveal delay={0.1}>
             <p className="pd-mono mt-10 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.35em] text-(--dk-acid)">
               <span className="pd-dot" />
-              {"// Contact — open channel"}
+              {"// Contact"}
             </p>
           </Reveal>
 
@@ -45,8 +45,7 @@ export function Contact() {
 
           <Reveal delay={0.26}>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-(--dk-mist)">
-              Tell us what you are building. We reply within 24 hours with a
-              scoped plan and a timeline.
+              Tell us what you are building — we reply within 24 hours with a scoped plan and a timeline
             </p>
           </Reveal>
 

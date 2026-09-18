@@ -47,7 +47,7 @@ export default async function OpengraphImage() {
           Ship with <span style={{ color: "#41f2a4", marginLeft: 24 }}>confidence</span>
         </div>
         <div style={{ fontSize: 30, color: "#8296ad", lineHeight: 1.3 }}>
-          Independent security audits for web3 protocols, infrastructure, and wallets.
+          Independent security audits for web3 protocols, infrastructure, and wallets
         </div>
       </div>
 
