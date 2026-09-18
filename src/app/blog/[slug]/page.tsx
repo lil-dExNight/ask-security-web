@@ -7,8 +7,8 @@ import { Markdown } from "@/components/markdown";
 import { SiteHeader } from "@/components/landing/site-header";
 import { SiteFooter } from "@/components/landing/site-footer";
 
-// Posts are read from disk; render on every request so admin writes show up instantly.
-export const dynamic = "force-dynamic";
+// ISR: cached for up to an hour; admin writes call revalidatePath for instant updates.
+export const revalidate = 3600;
 
 const dateFmt = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
