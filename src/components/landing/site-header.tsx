@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, m } from "motion/react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
@@ -43,7 +42,6 @@ export function SiteHeader() {
             alt=""
             width={920}
             height={520}
-            priority
             sizes="28px"
             className="pd-logo h-7 w-auto"
           />
@@ -65,13 +63,15 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Button
-            render={<a href="https://t.me/asksecurity" target="_blank" rel="noopener noreferrer" />}
-            className="pd-mono hidden h-9 rounded-md border-(--dk-acid)/50 bg-(--dk-acid)/10 px-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-(--dk-acid) transition-shadow hover:bg-(--dk-acid)/15 hover:shadow-[0_0_28px_-6px_var(--dk-acid)] sm:inline-flex"
+          <a
+            href="https://t.me/asksecurity"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/button shrink-0 items-center justify-center border bg-clip-padding whitespace-nowrap outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 gap-1.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 pd-mono hidden h-9 rounded-md border-(--dk-acid)/50 bg-(--dk-acid)/10 px-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-(--dk-acid) transition-shadow hover:bg-(--dk-acid)/15 hover:shadow-[0_0_28px_-6px_var(--dk-acid)] sm:inline-flex"
           >
             Request an audit
             <ArrowUpRight className="size-3.5" />
-          </Button>
+          </a>
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}

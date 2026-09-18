@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { SmoothScroll } from "@/components/landing/smooth-scroll";
 import { Providers } from "@/components/landing/providers";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -65,7 +64,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`h-full antialiased ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-full flex flex-col">
-        <SmoothScroll />
         <Providers>{children}</Providers>
       </body>
     </html>

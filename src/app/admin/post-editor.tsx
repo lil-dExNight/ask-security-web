@@ -1,10 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Markdown } from "@/components/markdown";
+import { useDeferredValue, useEffect, useState } from "react";
 import type { Post } from "@/lib/blog";
+
+const Markdown = dynamic(() => import("@/components/markdown").then((mod) => mod.Markdown), {
+  ssr: false,
+  loading: () => <p className="text-sm text-(--dk-mist)">Loading preview…</p>,
+});
 
 const inputClass =
   "w-full rounded-md border border-(--dk-line) bg-(--dk-panel) px-3 py-2 text-sm text-(--dk-ink) placeholder:text-(--dk-mist) focus:border-(--dk-acid) focus:outline-none";
@@ -40,6 +45,7 @@ export function PostEditor({ mode, initialPost }: PostEditorProps) {
   const [tagsInput, setTagsInput] = useState((initialPost?.tags ?? []).join(", "));
   const [draft, setDraft] = useState(initialPost?.draft ?? true);
   const [content, setContent] = useState(initialPost?.content ?? "");
+  const deferredContent = useDeferredValue(content);
   const [showPreview, setShowPreview] = useState(true);
   const [dirty, setDirty] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -269,7 +275,7 @@ export function PostEditor({ mode, initialPost }: PostEditorProps) {
             <p className={labelClass}>Preview</p>
             <div className="min-h-96 rounded-md border border-(--dk-line) bg-(--dk-panel) p-4">
               {content.trim() ? (
-                <Markdown source={content} />
+                <Markdown source={deferredContent} />
               ) : (
                 <p className="text-sm text-(--dk-mist)">Nothing to preview yet.</p>
               )}
